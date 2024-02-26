@@ -1,0 +1,14 @@
+{
+    "name": "location-tracker",
+    "version": "1.0.0",
+    "private": true,
+    "main": "index.js",
+    "repository": "https://github.com/john-shaibu/location-tracker.git",
+    "author": "Zidio Internship Team Group 2",
+    "license": "MIT",
+    "workspaces": [
+        "frontend",
+        "backend",
+        "shared"
+    ]
+}
