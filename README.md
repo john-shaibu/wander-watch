@@ -1,6 +1,6 @@
-# Location Tracker
+# Wander Watch
 
-Location Tracker is a web application that allows users to track their location in real-time and view their location history.
+Wander Watch is a web application that allows users to track their location in real-time and view their location history.
 
 ## Features
 
@@ -23,19 +23,19 @@ Location Tracker is a web application that allows users to track their location 
 
 ## Getting Started
 
-To get started with the Location Tracker project, follow these steps:
+To get started with the Wander Watch project, follow these steps:
 
 1. First, make sure you have yarn installed on your system. If not, you can install it by following the instructions on the official yarn website: https://classic.yarnpkg.com/en/docs/install/
 
 2. Clone the repository:
 ```
-git clone https://github.com/your-username/location-tracker.git
+git clone https://github.com/your-username/wander-watch.git
 ```
 
 3. Navigate to the project directory:
 
 ```
-cd location-tracker
+cd wander-watch
 ```
 
 
@@ -60,11 +60,11 @@ cd backend
 yarn start
 ```
 
-7. Open your browser and navigate to `http://localhost:{PORT}` to view the Location Tracker application.
+7. Open your browser and navigate to `http://localhost:{PORT}` to view the Wander Watch application.
 
 ## Contributing
 
-Contributions are welcome! If you'd like to contribute to the Location Tracker project, please follow these guidelines:
+Contributions are welcome! If you'd like to contribute to the Wander Watch project, please follow these guidelines:
 
 1. Fork the repository and create a new branch for your feature or bug fix.
 2. Make your changes and ensure that they follow the project's coding conventions.
@@ -73,7 +73,7 @@ Contributions are welcome! If you'd like to contribute to the Location Tracker p
 
 ## License
 
-This project is licensed under the MIT License 
+This project is licensed under the MIT License
 
 
 
