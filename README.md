@@ -42,9 +42,9 @@ cd wander-watch
 4. Install dependencies for both frontend and backend:
 ```
 cd frontend
-yarn install
+npm install
 cd backend
-yarn install
+npm install
 ```
 5. Set up environment variables
 
@@ -52,12 +52,12 @@ yarn install
 ```
 For Frontend
 cd frontend
-yarn start
+npm run dev
 ```
 ```
 For Backend
 cd backend
-yarn start
+npm start
 ```
 
 7. Open your browser and navigate to `http://localhost:{PORT}` to view the Wander Watch application.
