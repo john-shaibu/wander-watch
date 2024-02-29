@@ -3,25 +3,32 @@ function Login() {
     <>
       <div class="login">
         <form>
-          <label>Email or username</label>
-          <input type="text" placeholder="Email or Username" />
+          <h3>Login to your account</h3>
+          {/* <label>Email or username</label> */}
+          <p>Email Address</p>
+          <input type="email" placeholder="Ex. kygiddy@example.com" />
 
-          <label>Password</label>
+          {/* <label>Password</label> */}
+          <p>Password</p>
           <input type="text" placeholder="Password" />
 
           <div class="switch">
-            <input type="checkbox" id="switch" checked />
-            <label for="switch" class="custom-checkbox"></label>
-            <span>Remember me</span>
+            {/* <input type="checkbox" id="switch" checked /> */}
+            {/* <label for="switch" class="custom-checkbox"></label> */}
+            <br /><br />
+            <span>Remember me</span>{" "}
+            <span>
+              {" "}
+              <a href="!#">Forgot your Password?</a>
+            </span>
           </div>
           <div class="in">
+            <br /><br />
             <button>
-              <a href="./index.html">Log in</a>
+              <a href="!#">Log in to your account</a>
             </button>
           </div>
-          <div id="forgot-password">
-            <a href="!#">Forgot your Password?</a>
-          </div>
+          <p>Don't have an account yet? <span><a href="!#">Sign up</a></span></p>
         </form>
       </div>
     </>
