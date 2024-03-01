@@ -1,7 +1,10 @@
-function Login() {
+
+
+
+const Login = () => {
   return (
     <>
-      <div class="login">
+      <div className="login">
         <form>
           <h3>Login to your account</h3>
           {/* <label>Email or username</label> */}
@@ -12,7 +15,7 @@ function Login() {
           <p>Password</p>
           <input type="text" placeholder="Password" />
 
-          <div class="switch">
+          <div className="switch">
             {/* <input type="checkbox" id="switch" checked /> */}
             {/* <label for="switch" class="custom-checkbox"></label> */}
             <br /><br />
@@ -22,13 +25,13 @@ function Login() {
               <a href="!#">Forgot your Password?</a>
             </span>
           </div>
-          <div class="in">
+          <div className="in">
             <br /><br />
-            <button>
+            <button className="primary-btn">
               <a href="!#">Log in to your account</a>
             </button>
           </div>
-          <p>Don't have an account yet? <span><a href="!#">Sign up</a></span></p>
+          <p>Dont have an account yet? <span><a href="!#">Sign up</a></span></p>
         </form>
       </div>
     </>
