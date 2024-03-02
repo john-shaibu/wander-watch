@@ -1,8 +1,13 @@
-import { FullLogo } from "../assets";
+import { FullLogo, MailIcon, PasscodeIcon } from "../assets";
 import { Link } from "react-router-dom";
 import '../styles/login.css'
 
+import { useState } from "react";
+
 const Login = () => {
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <>
       <div className="container">
@@ -15,11 +20,27 @@ const Login = () => {
             <form action="" method="post">
               <div>
                 <label htmlFor="user_email">Email Address</label>
-                <input type="email" name="user_email" id="user_email" placeholder="Ex: johndoe@domain.com" />
+                <div>
+                  <MailIcon />
+                  <input type="email" name="user_email" id="user_email" placeholder="Ex: johndoe@domain.com" />
+                </div>
               </div>
               <div>
                 <label htmlFor="user_password">Password</label>
-                <input type="password" name="user_password" id="user_password" placeholder="Password" />
+                <div>
+                  <PasscodeIcon className='passcodeIcons' />
+                  <input type= {
+                      showPassword ? "text" : "password"
+                    }
+                    value={password}
+                    onChange={(e) =>
+                        setPassword(e.target.value)
+                    }
+                    name="user_password" 
+                    id="user_password" 
+                    placeholder="Password" 
+                  />
+                </div>
               </div>
               <div className="other_login_form_actions">
                 <div className="remember_me_checkbox">
