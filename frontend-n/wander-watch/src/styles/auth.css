@@ -85,3 +85,7 @@ form > .other_login_form_actions{
     font-weight: 500;
     color: var(--bg-primary);
 }
+.formContainer > p{
+    font-size: var(--font-sm);
+    font-weight: 500;
+}

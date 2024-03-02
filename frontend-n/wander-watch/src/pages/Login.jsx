@@ -1,8 +1,9 @@
 import { FullLogo, MailIcon, PasscodeIcon } from "../assets";
 import { Link } from "react-router-dom";
-import '../styles/login.css'
+import '../styles/auth.css'
 
 import { useState } from "react";
+import PageHelmet from "../components/Helmet";
 
 const Login = () => {
   const [password, setPassword] = useState("");
@@ -11,6 +12,8 @@ const Login = () => {
   return (
     <>
       <div className="container">
+        <PageHelmet title='Login' keywords='location tracker, wander watch, location monitor' description='Wander watch login page' />
+
         <div className="login">
           <a href="#" className="logoLink">
             <FullLogo />

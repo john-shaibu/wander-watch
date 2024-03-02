@@ -1,8 +1,18 @@
-import React from 'react'
+
+import Header from '../components/Header'
+import Sidenav from '../components/Sidenav'
 
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
+    <div className="grid main-container">
+      <Header />
+      <Sidenav />
+      <div className="wrapper">
+        <main className="">
+          main body
+        </main>
+      </div>
+    </div>
   )
 }
 

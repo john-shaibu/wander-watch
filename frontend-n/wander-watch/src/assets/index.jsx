@@ -5,7 +5,8 @@ import PasscodeIcon from './passcodeIcon.svg?react'
 import FullLogo from './fullLogo.svg?react'
 import HidePasswordIcon from './HidePasswordIcon.svg?react'
 import ShowPasswordIcon from './ShowPasswordIcon.svg?react'
+import Profile from './Profile.svg?react'
 
 
 
-export { BlackLogo, WhiteLogo, MailIcon, PasscodeIcon, FullLogo, HidePasswordIcon, ShowPasswordIcon }
+export { BlackLogo, WhiteLogo, MailIcon, PasscodeIcon, FullLogo, HidePasswordIcon, ShowPasswordIcon, Profile}
