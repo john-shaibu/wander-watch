@@ -1,0 +1,76 @@
+
+.login{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: var(--space-2xl);
+    max-width: 580px;
+    width: 100%;
+}
+.formContainer{
+    background-color: var(--color-lightest);
+    padding: var(--space-4xl);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    /* background-color: green; */
+    gap: var(--space-largest);
+    border-radius: 16px;
+    width: 100%;
+    box-shadow: 0 4px 36px rgba(0, 0, 0, 8%);
+
+}
+.formContainer > h2{
+    font-size: var(--font-2xl);
+    color: var(--color-darkest);
+}
+.formContainer > form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+}
+
+form > div:not(.other_login_form_actions){
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+form > div > label{
+    font-size: var(--font-md);
+    color: var(--color-darkest);
+}
+form > div > input{
+    height: 56px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding-inline: 40px 16px;
+    outline: 2px solid transparent;
+    transition: all .3s;
+    font-size: var(--font-base);
+}
+form > div > input:focus{
+    outline-color: var(--bg-primary);
+}
+
+form > .other_login_form_actions{
+    display: flex;
+    justify-content: space-between;
+}
+.other_login_form_actions label, .other_login_form_actions a{
+    font-size: var(--font-sm);
+}
+
+.other_login_form_actions label{
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    color: var(--color-darkest);
+}
+.other_login_form_actions label > input{
+    border: 1px solid var(--color-border);
+}
+.other_login_form_actions a{
+    font-weight: 500;
+    color: var(--bg-primary);
+}
