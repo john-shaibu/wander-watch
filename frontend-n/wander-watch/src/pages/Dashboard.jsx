@@ -2,9 +2,11 @@
 import Header from '../components/Header'
 import Sidenav from '../components/Sidenav'
 
+import '../styles/dashboard.css'
+
 const Dashboard = () => {
   return (
-    <div className="grid main-container">
+    <div className="main-container">
       <Header />
       <Sidenav />
       <div className="wrapper">

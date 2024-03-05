@@ -1,0 +1,6 @@
+.wrapper {
+    order: 3;
+    overflow-x: hidden;
+    background-color: inherit;
+    background-color: var(--color-neutral-bg);
+  }
