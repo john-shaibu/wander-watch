@@ -1,7 +1,7 @@
 aside{
     grid-row: span 2;
     order: 1;
-    padding-block: var(--space-lg);
+    padding-block: var(--space-2xl);
     border-right: 1px solid var(--color-border);
     height: 100vh;
     height: 100dvh;
@@ -10,5 +10,74 @@ aside{
     width: 80px;
     position: sticky;
     top: 0;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-largest);
     
+}
+
+aside > ul{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+}
+aside > ul > li > a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px !important;
+    position: relative;
+    height: 48px !important;
+    background-color: var(--color-lightest);
+    border-radius: 8px;
+    transition: all .3s;
+    box-shadow: none;
+    font-weight: 600;
+}
+aside > ul > li > a:hover{
+    background-color: var(--color-border);
+}
+aside > ul > li > a.active{
+    background-color: var(--bg-primary);
+}
+ul > li > a.active > svg *{
+    stroke: var(--color-lightest);
+}
+aside > ul > li > a:not(a.active):hover > svg *{
+    stroke: var(--bg-primary);
+}
+a.active::before{
+
+}
+ul> li span{
+    position: absolute;
+    left: 120%;
+    background-color: var(--color-lightest);
+    border: 1px solid var(--color-border);
+    padding: var(--space-xxs);
+    border-radius: 8px;
+    color: var(--color-dark);
+    font-size: var(--font-xs);
+    visibility: hidden;
+    animation-duration: .2s;
+}
+aside > ul > li > a:hover span{
+    visibility: visible;
+    animation-name: sidebar_tooltip_animation !important;
+    animation-timing-function: linear;
+}
+
+@keyframes sidebar_tooltip_animation {
+    0%{
+        opacity: 0;
+        transform: translateY(10px);
+        
+    }
+    100%{
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

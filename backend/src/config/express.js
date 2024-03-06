@@ -32,7 +32,11 @@ app.use(cors({
 app.use(compression)
 
 app.use(express.json())
+
 // Logger - using the morgan logging library
+// This middleware is used for logging requests and responses. 
+// It provides a structured way to see information like the HTTP method, 
+// path, status code, and other details.
 app.use(morgan('short'))
 
 

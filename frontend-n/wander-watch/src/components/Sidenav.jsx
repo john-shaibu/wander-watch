@@ -1,38 +1,54 @@
-import { BlackLogo } from '../assets'
+
 import '../styles/sidenav.css'
 
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
+
+import { Discovery, Dashboard, Metrics, DefaultLogo } from '../assets'
+import { Icon } from './Icon'
+
+import {motion} from 'framer-motion'
+import { useAnimate } from 'framer-motion'
+
 
 const linkData = [
   {
-    title: 'dashboard',
+    title: 'Dashboard',
     link : '/',
-    icon: '',
+    icon: Dashboard,
   },
   {
-    title: 'Activities',
-    link : '/',
-    icon: '',
+    title: 'Discover',
+    link : '/discover',
+    icon: Discovery
   },
   {
     title: 'Metrics',
-    link : '/',
-    icon: '',
+    link : '/metrics',
+    icon: Metrics,
   }
   
 ]
+
 
 const Sidenav = () => {
   return (
     <aside>
       <Link to='/' className="logo">
-        <BlackLogo />
+        <DefaultLogo />
       </Link>
       <ul>
-        <li>
-          <Link></Link>
-          <span></span>
-        </li>
+        {
+          linkData.map((link) => {
+            return (
+              <li key={link.title} >
+                {console.log(link)}
+                <NavLink className={({ isActive }) => `${ isActive ? 'active primary-btn' : '' }`} to={link.link}>
+                  {<Icon iconelement={link.icon} className={'icon'} />}
+                  <span className='sidenav_tooltip'>{link.title}</span>
+                </NavLink>
+              </li>
+            );
+          })}
       </ul>
     </aside>
   )
