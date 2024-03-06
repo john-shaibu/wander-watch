@@ -9,5 +9,12 @@
     "workspaces": [
         "frontend-n",
         "backend"
-    ]
+    ],
+    "scripts": {
+        "install": "npm install",
+        "start": "concurrently \"npm workspaces backend start\" \"npm workspaces frontend-n dev\""
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.2"
+    }
 }
