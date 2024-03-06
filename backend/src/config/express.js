@@ -45,7 +45,6 @@ app.use('/auth', authRouter)
 app.use('/locations', locationRouter)
 app.use('/users', userRouter)
 
-
 // Error handlers
 app.use(notFound)
 app.use(errorHandler)
