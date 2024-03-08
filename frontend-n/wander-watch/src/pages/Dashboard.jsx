@@ -8,7 +8,9 @@ import '../styles/dashboard.css'
 import Map from '../components/Map'
 import LocationHistory from '../components/LocationHistory'
 
+
 const Dashboard = () => {
+
   return (
     <div className="main-container">
       <PageHelmet title='Dashboard' keywords='location tracker, wander watch, location monitor' description='Wander watch Dashboard page' />

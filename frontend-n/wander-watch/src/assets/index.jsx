@@ -17,6 +17,13 @@ import UserAvatar from './Avatar.svg?react'
 import PreferenceIcon from './Preference.svg?react'
 import SettingsIcon from './Setting.svg?react'
 import SignoutIcon from './Logout.svg?react'
+import HistoryIcon from './History.svg?react'
+import ClockIcon from './ClockIcon.svg?react'
+import CalendarIcon from './calendarIcon.svg?react'
+import LocationIcon from './LocationIcons.svg?react'
+import ZoomInIcon from './zoom_in.svg?react'
+import ZoomOutIcon from './zoom_out.svg?react'
+import PreciseLocation from './precise_location.svg?react'
 
 
 
@@ -39,5 +46,12 @@ export {
     UserAvatar,
     PreferenceIcon,
     SettingsIcon,
-    SignoutIcon
+    SignoutIcon,
+    HistoryIcon,
+    CalendarIcon,
+    ClockIcon,
+    LocationIcon,
+    ZoomInIcon,
+    ZoomOutIcon,
+    PreciseLocation
 }

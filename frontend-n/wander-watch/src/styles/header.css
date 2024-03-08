@@ -129,7 +129,7 @@ header  .menu_dropdown > .user_toggle_dropdown{
     padding: var(--space-xs);
     display: none;
     animation-duration: 0s;
-    box-shadow: 0 4px 32px rgba(61, 85, 204, 10%) ;
+    box-shadow: var(--box-shadow) ;
 }
 
 .dropdown_container.open{
@@ -181,5 +181,11 @@ header  .menu_dropdown > .user_toggle_dropdown{
     100%{
         transform: translateY(0px);
         opacity: 1;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .search{
+        display: none;
     }
 }
