@@ -7,6 +7,8 @@
   overflow-y: auto;
   overflow-x: hidden;
   padding: var(--space-xl);
+  max-width: 1600px;
+
   /* background-color: aliceblue; */
   
 }
@@ -142,7 +144,18 @@ main > .map-container{
   font-size: var(--font-xs);
   color: var(--color-md);
 }
-
+@media screen and (min-width : 1600px) {
+  .wrapper{
+    position: relative;
+  }
+  main {
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    transform: translateX(-50%);
+    height: 100%;
+  }
+}
 @media screen and (max-width : 625px) {
   main {
     grid-template-columns: 100%;
