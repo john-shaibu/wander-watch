@@ -6,15 +6,18 @@ import MenuDropdown from './MenuDropdown';
 
 
 
-const Header = () => {
-  
+const Header = (props) => {
+  const headerName = props.headerName
   return (
     <header>
-      <h2>Dashboard</h2>
+      <h2>{headerName}</h2>
       <div className="search_notification_menu">
         <div className="search">
           <SearchIcon />
           <input type="text" placeholder='Search for a place' />
+        </div>
+        <div className="search_on_mobile">
+          <SearchIcon />
         </div>
         <div className="header_notification">
           <span>

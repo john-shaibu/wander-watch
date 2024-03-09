@@ -136,6 +136,12 @@ aside svg,aside svg *{
   order: 3;
   overflow-x: hidden;
   background-color: inherit;
-  padding: var(--space-xl);
   height: calc(100vh - 96px);
+}
+
+@media screen and (max-width: 625px) {
+  .main-container{
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+  }
 }

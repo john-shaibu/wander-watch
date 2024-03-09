@@ -10,22 +10,22 @@ import { Profile } from "../assets";
 const dropdownContent = [
     {
         title: 'Your Profile',
-        url: 'profile',
+        url: '/profile',
         icon: Profile,
     },
     {
         title: 'Preferences',
-        url: 'preferences',
+        url: '/preferences',
         icon: PreferenceIcon,
     },
     {
         title: 'Settings',
-        url: 'Settings',
+        url: '/settings',
         icon: SettingsIcon,
     },
     {
         title: 'Sign out',
-        url: 'sign-out',
+        url: '/sign-out',
         icon: SignoutIcon,
     },
 ]

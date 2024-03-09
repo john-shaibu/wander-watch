@@ -47,6 +47,16 @@ header > .search_notification_menu{
 .search input:focus{
     outline-color: var(--bg-primary);
 }
+.search_on_mobile{
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    display: none;
+}
 .search_notification_menu .header_notification {
     position: relative;
 }
@@ -89,6 +99,7 @@ header  .menu_dropdown > .user_toggle_dropdown{
     cursor: pointer;
     transition: all .3s;
     overflow: hidden;
+
     
 }
 .user_toggle_dropdown:hover{
@@ -130,6 +141,7 @@ header  .menu_dropdown > .user_toggle_dropdown{
     display: none;
     animation-duration: 0s;
     box-shadow: var(--box-shadow) ;
+
 }
 
 .dropdown_container.open{
@@ -183,9 +195,48 @@ header  .menu_dropdown > .user_toggle_dropdown{
         opacity: 1;
     }
 }
-
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 625px) {
+    header{
+        justify-content: flex-end;
+        padding: 1em;
+    }
+    header > h2{
+        display: none;
+    }
+}
+@media screen and (max-width: 726px) {
+    header > .search_notification_menu{
+        gap: var(--space-xl);
+    }
+}
+@media screen and (max-width: 996px) {
+    .user_toggle_dropdown > .name_and_email{
+        display: none;
+    }
+    .search_on_mobile{
+        display: flex;
+        cursor: pointer;
+        transition: all .3s;
+    }
+    .search_on_mobile > svg *{
+        stroke: var(--color-darkest);
+    }
+    .search_on_mobile:hover{
+        background-color: var(--color-border);
+    }
+    .search_on_mobile:hover > svg *{
+        stroke: var(--bg-primary);
+    }
     .search{
         display: none;
+    }
+    .menu_dropdown .dropdown_container{
+        width: 250px;
+        right: 0;
+    }
+}
+@media screen and (max-width: 1200px) {
+    .search input{
+        min-width: 300px;
     }
 }

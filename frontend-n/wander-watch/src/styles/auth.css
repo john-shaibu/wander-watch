@@ -89,3 +89,9 @@ form > .other_login_form_actions{
     font-size: var(--font-sm);
     font-weight: 500;
 }
+
+@media screen and (max-width : 625px) {
+    .formContainer{
+        padding: 2em;
+    }
+}

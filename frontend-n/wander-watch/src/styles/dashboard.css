@@ -3,8 +3,11 @@
   display: grid;
   grid-template-columns: 70.5% 27.5%;
   gap: 1.5em;
-  overflow-y: hidden;
-  z-index: 1;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: var(--space-xl);
+  /* background-color: aliceblue; */
   
 }
 
@@ -15,7 +18,7 @@ main > .map-container{
   border-radius: 12px;
   border: 1px solid var(--color-border);
   position: relative;
-  /* max-height: 600px; */
+  z-index: 0 !important;
 }
 .map-container .leaflet-container{
   height: 100%;
@@ -86,7 +89,7 @@ main > .map-container{
   gap: 1em;
   overflow: auto;
   position: relative;
-  height: 100%;
+  
 }
 .location_history_container::before{
   content: '';
@@ -140,10 +143,19 @@ main > .map-container{
   color: var(--color-md);
 }
 
+@media screen and (max-width : 625px) {
+  main {
+    grid-template-columns: 100%;
+    grid-auto-rows: auto;
+  }
+  .user_location_info{
+    display: none;
+  }
+}
 
 @media screen and (max-width: 992px) {
-  main{
-    grid-template-columns: unset;
+  .wrapper main{
+    grid-template-columns: 100%;
   }
   .location_history{
     display: none;
