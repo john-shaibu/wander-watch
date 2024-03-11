@@ -70,7 +70,7 @@ const Map = () => {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             <CustomMarker title={!loadingLocation && locationTitle ? locationTitle : locationFallback}/>
-            <UserLocationInfo refined_location_name={`${Street_no}, ${street_name}, ${state} State, ${country} `} />
+               {!street_name ? '' : <UserLocationInfo refined_location_name={`${Street_no}, ${street_name}, ${state} State, ${country} `} />}    
         </MapContainer>}
         
     </div>
