@@ -12,6 +12,7 @@ let street_name = '';
 let city = '';
 let state = '';
 let country = ''
+let formatted_address = '';
 
 const Map = () => {
   const [err, location] = useLocation()
@@ -24,8 +25,7 @@ const Map = () => {
   if (locationTitle != null) {
     const results = locationTitle.results;
     if (results[0]){
-            let address_components = results[0].address_components;
-      let formatted_address = results[0].formatted_address;
+      let address_components = results[0].address_components;
       
 
       for (var i = 0; i < address_components.length; i++) {
@@ -70,7 +70,7 @@ const Map = () => {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             <CustomMarker title={!loadingLocation && locationTitle ? locationTitle : locationFallback}/>
-               {!street_name ? '' : <UserLocationInfo refined_location_name={`${Street_no}, ${street_name}, ${state} State, ${country} `} />}    
+               {!state ? '' : <UserLocationInfo refined_location_name={`${Street_no}, ${street_name}, ${state} State, ${country} `} />}    
         </MapContainer>}
         
     </div>
