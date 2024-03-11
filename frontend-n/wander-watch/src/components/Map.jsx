@@ -1,66 +1,70 @@
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
-import { LocationIcon, PreciseLocation, ZoomInIcon, ZoomOutIcon } from '../assets'
+import { MapContainer, TileLayer} from 'react-leaflet';
 import useLocation from '../hooks/useLocation'
 import { useEffect, useRef, useState } from 'react';
-
-const CustomMarker = ({ title = '' }) => {
-    const [position, setPosition] = useState(null)
-    const map = useMapEvents({
-      click() {
-        map.locate()
-        map.zoomIn(5)
-      },
-      locationfound(e) {
-        setPosition(e.latlng)
-        map.flyTo(e.latlng, map.getZoom())
-      },
-    })
-    console.log(position)
-    return position === null ? null : (
-        <Marker position={position}>
-          <Popup>{title}</Popup>
-        </Marker>
-      )
-}
+import { useAsync } from '../hooks/useAsync';
+import MapLoader from './mapComponents/MapLoader';
+import UserLocationInfo from './mapComponents/UserLocationInfo';
+import getLocationAdress from './mapComponents/mapDataFetcher';
+import CustomMarker from './mapComponents/Marker';
 
 const Map = () => {
   const [err, location] = useLocation()
   const mapRef = useRef(null)
-  console.log(location);
-  const locationTitle = 'Kenneth Mellanby Hall, UI'
+  const { loading: loadingLocation, value: locationTitle, error: locationError } = useAsync(getLocationAdress(location?.longitude, location?.latitude), [ location ])
+  const  locationFallback = 'omo!'
+  console.log(locationError);
+  
+  if (locationTitle != null) {
+    const results = locationTitle.results;
+    if (results[0]){
+      let Street_no = '';
+      let street_name = '';
+      let city = '';
+      let state = '';
+      let country = ''
+
+      let address_components = results[0].address_components;
+      let formatted_address = results[0].formatted_address;
+
+      for (var i = 0; i < address_components.length; i++) {
+          if (address_components[i].types[0] === "administrative_area_level_1" && address_components[i].types[1] === "political") {
+              state = address_components[i].long_name;    
+          }
+          if (address_components[i].types[0] === "locality" && address_components[i].types[1] === "political" ) {                                
+              city = address_components[i].long_name;   
+          }
+          
+          if (address_components[i].types[0] === "country") {
+              country = address_components[i].long_name;
+
+          }
+        }
+      // console.log(results);
+      console.log(city, state, country)
+      console.log(formatted_address)
+    }
+  } else {
+    console.log('could not get your location info')    
+  }
+
 
   useEffect(() => {
     if (location && mapRef.current) { 
-        mapRef.current._container.click() 
-        mapRef.current._container.click() 
+      mapRef.current._container.click() 
+      mapRef.current._container.click() 
     }
   }, [location, mapRef])
-
+  
   return (
     <div className='map-container'>
-        {!location ? null : <MapContainer zoom={8} center={{lng: location.longitude, lat: location.latitude}} ref={mapRef}>
+        {!location ? <MapLoader /> : <MapContainer zoom={8} center={{lng: location.longitude, lat: location.latitude}} ref={mapRef}>
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <CustomMarker title={locationTitle}/>
+            <CustomMarker title={!loadingLocation && locationTitle ? locationTitle : locationFallback}/>
+            <UserLocationInfo refined_location_name={'locationTitle.results[0]'} />
         </MapContainer>}
-        <div className="user_location_info">
-            <div className="location_info">
-                <LocationIcon />
-                <b>{locationTitle}</b>
-            </div>
-            <div className="map_controls">
-                <button className="zoom_out">
-                    <ZoomOutIcon />
-                </button>
-                <button className="zoom_in">
-                    <ZoomInIcon />
-                </button>
-                <button className="go_to_precise_location primary-btn">
-                    <PreciseLocation />
-                 </button>
-            </div>
-        </div>
+        
     </div>
   )
 }
