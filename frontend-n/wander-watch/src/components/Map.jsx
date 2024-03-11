@@ -7,26 +7,34 @@ import UserLocationInfo from './mapComponents/UserLocationInfo';
 import getLocationAdress from './mapComponents/mapDataFetcher';
 import CustomMarker from './mapComponents/Marker';
 
+let Street_no = '';
+let street_name = '';
+let city = '';
+let state = '';
+let country = ''
+
 const Map = () => {
   const [err, location] = useLocation()
   const mapRef = useRef(null)
   const { loading: loadingLocation, value: locationTitle, error: locationError } = useAsync(getLocationAdress(location?.longitude, location?.latitude), [ location ])
   const  locationFallback = 'omo!'
   console.log(locationError);
+  console.log(locationTitle);
   
   if (locationTitle != null) {
     const results = locationTitle.results;
     if (results[0]){
-      let Street_no = '';
-      let street_name = '';
-      let city = '';
-      let state = '';
-      let country = ''
-
-      let address_components = results[0].address_components;
+            let address_components = results[0].address_components;
       let formatted_address = results[0].formatted_address;
+      
 
       for (var i = 0; i < address_components.length; i++) {
+          if (address_components[i].types[0] === "administrative_area_level_3" && address_components[i].types[1] === "political") {
+              Street_no = address_components[i].long_name;    
+          }
+          if (address_components[i].types[0] === "neighborhood") {
+              street_name = address_components[i].long_name;    
+          }
           if (address_components[i].types[0] === "administrative_area_level_1" && address_components[i].types[1] === "political") {
               state = address_components[i].long_name;    
           }
@@ -40,8 +48,8 @@ const Map = () => {
           }
         }
       // console.log(results);
-      console.log(city, state, country)
-      console.log(formatted_address)
+      console.log(Street_no, street_name, city, state, country)
+      // console.log(formatted_address)
     }
   } else {
     console.log('could not get your location info')    
@@ -57,12 +65,12 @@ const Map = () => {
   
   return (
     <div className='map-container'>
-        {!location ? <MapLoader /> : <MapContainer zoom={8} center={{lng: location.longitude, lat: location.latitude}} ref={mapRef}>
+        {!location ? <MapLoader /> : <MapContainer zoom={8} center={{lng: location.longitude, lat: location.latitude}} ref={mapRef} scrollWheelZoom={false} >
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             <CustomMarker title={!loadingLocation && locationTitle ? locationTitle : locationFallback}/>
-            <UserLocationInfo refined_location_name={'locationTitle.results[0]'} />
+            <UserLocationInfo refined_location_name={`${Street_no}, ${street_name}, ${state} State, ${country} `} />
         </MapContainer>}
         
     </div>

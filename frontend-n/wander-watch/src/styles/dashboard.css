@@ -53,16 +53,17 @@ main > .map-container{
   box-shadow: var(--box-shadow);
   display: flex;
   justify-content: space-between;
+  align-items: center;
   z-index: 999;
 }
 
 .user_location_info .location_info{
   display: flex;
   align-items: center;
-  gap: 1em;
+  gap: 2em;
 }
 .location_info b{
-  font-size: var(--font-2xl);
+  font-size: var(--font-md);
   color: var(--color-darkest);
 }
 
