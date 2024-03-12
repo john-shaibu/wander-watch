@@ -1,85 +1,11 @@
 const expressAsyncHandler = require('express-async-handler');
 const {
-  registrationValidation,
-  loginValidation,
   updateUserValidation,
 } = require('../validation/userValidation');
 const { hashPassword, comparedPassword } = require('../middlewares/hashing');
-const { generateToken } = require('../middlewares/jwt');
 const { PrismaClient } = require('@prisma/client');
+const { InvalidRequestError, AppError, NotFoundError } = require('../utils/AppErrors');
 const prisma = new PrismaClient();
-
-// Register User
-const registerUser = expressAsyncHandler(async (req, res) => {
-  try {
-    const { fullname, email, password, confirmpassword } = req.body;
-
-    // Validate the user input
-    const { error } = registrationValidation.validate(req.body);
-    if (error)
-      return res.status(400).json({ message: error.details[0].message });
-
-    // Check if user exists
-    const userExists = await prisma.User.findUnique({
-      where: { email },
-    });
-    if (userExists) {
-      return res.status(400).json({ message: 'User already exists' });
-    }
-
-    // Check if password and confirm password match
-    if (password !== confirmpassword)
-      return res.status(400).json({ message: 'Password does not match' });
-
-    // Hash the password
-    const hashedPassword = await hashPassword(password);
-
-    const user = await prisma.User.create({
-      data: {
-        fullname,
-        email,
-        password: hashedPassword,
-        confirmpassword,
-      },
-    });
-    res.status(201).json(user);
-  } catch (error) {
-    console.error('Error registering user:', error);
-    return res.status(500).json({ message: 'Internal server error' });
-  }
-});
-
-// Login User
-const loginUser = expressAsyncHandler(async (req, res) => {
-  try {
-    const { email, password } = req.body;
-
-    // Validate the user input
-    const { error } = loginValidation.validate(req.body);
-    if (error)
-      return res.status(400).json({ message: error.details[0].message });
-
-    // Check if user exists
-    const user = await prisma.User.findUnique({
-      where: { email },
-    });
-    if (!user) return res.status(400).json({ message: 'User not found' });
-
-    // Compare password
-    const validPassword = await comparedPassword(password, user.password);
-    if (!validPassword)
-      return res.status(400).json({ message: 'Invalid password' });
-
-    // Generate token
-    const token = generateToken(user.id);
-    res.header('auth-token', token);
-
-    res.status(200).json({ message: 'Login successful', token });
-  } catch (error) {
-    console.error('Error logging in user:', error);
-    return res.status(500).json({ message: 'Internal server error' });
-  }
-});
 
 // Update user details without password
 const updateUser = expressAsyncHandler(async (req, res) => {
@@ -90,7 +16,7 @@ const updateUser = expressAsyncHandler(async (req, res) => {
     // Validate the user input
     const { error } = updateUserValidation.validate({ fullname, email });
     if (error) {
-      return res.status(400).json({ message: error.details[0].message });
+      throw new InvalidRequestError(error.details[0].message);
     }
 
     // Update the user details
@@ -103,7 +29,7 @@ const updateUser = expressAsyncHandler(async (req, res) => {
     res.status(200).json({ updatedUser, message: 'User updated successfully' });
   } catch (error) {
     console.error('Error updating user:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    throw new AppError(error)
   }
 });
 
@@ -119,11 +45,11 @@ const updatePassword = expressAsyncHandler(async (req, res) => {
     });
     const validPassword = await comparedPassword(oldpassword, user.password);
     if (!validPassword)
-      return res.status(400).json({ message: 'Invalid old password' });
+      throw new InvalidRequestError('Invalid old password');
 
     // Check if new password and confirm new password match
     if (newpassword !== confirmnewpassword)
-      return res.status(400).json({ message: 'Password does not match' });
+     throw new InvalidRequestError('Password does not match');
 
     // Hash the new password
     const hashedPassword = await hashPassword(newpassword);
@@ -136,8 +62,18 @@ const updatePassword = expressAsyncHandler(async (req, res) => {
     res.status(200).json({ message: 'Password updated successfully' });
   } catch (error) {
     console.error('Error updating password:', error);
-    return res.status(500).json({ message: 'Internal server error' });
+    throw new AppError(error)
   }
 });
 
-module.exports = { registerUser, loginUser, updateUser, updatePassword };
+const userMetrics = expressAsyncHandler(async (req, res) => {
+  
+  res.status(200).json({message : 'user metrics page'})
+})
+
+const discover = expressAsyncHandler(async (req, res) => {
+  
+  res.status(200).json({message : 'user discover page'})
+})
+
+module.exports = { updateUser, updatePassword };
