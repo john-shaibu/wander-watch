@@ -21,11 +21,19 @@ const Settings = () => {
       <Header headerName='Metrics' />
       <Sidenav toggleState={toggleState}  />
       <div className={`side-nav-underlay${open ? ' open': ''}`}></div>
-      <div className="wrapper">
+      <div className="settings-wrapper">
         <main>
            <div className='settings-container'>
             <div>
             <h2>General Settings</h2>
+            <div>
+              <div>
+                <h3>Tracking I nterver</h3>
+              </div>
+              <div>
+
+              </div>
+            </div>
             </div>
            </div>
         </main>
