@@ -67,6 +67,7 @@ form > div > div > input:focus{
 form > .other_login_form_actions{
     display: flex;
     justify-content: space-between;
+    flex-direction: row;
 }
 .other_login_form_actions label, .other_login_form_actions a{
     font-size: var(--font-sm);

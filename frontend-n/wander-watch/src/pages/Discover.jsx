@@ -8,6 +8,7 @@ import '../styles/dashboard.css'
 import { useToggle } from '../hooks/useToggle'
 import Map from '../components/Map'
 import Filter from '../components/Filter'
+import DiscoveryMap from '../components/DiscoveryMap'
 
 
 const Discover = () => {
@@ -24,7 +25,7 @@ const Discover = () => {
       <div className={`side-nav-underlay${open ? ' open': ''}`}></div>
       <div className="wrapper">
         <main>
-           <Map />
+           <DiscoveryMap />
            <Filter />
         </main>
       </div>

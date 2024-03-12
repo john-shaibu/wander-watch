@@ -114,7 +114,7 @@ body {
 }
 
 input::placeholder{
-  color: var(--color-dark);
+  color: var(--color-md);
 }
 
 .main-container{

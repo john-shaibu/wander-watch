@@ -45,7 +45,7 @@ main > .map-container{
   width: calc(100% - 4em);
   position: absolute;
   border-radius: 8px;
-  padding: 2em;
+  padding: 1.5em;
   bottom: 2em;
   left: 50%;
   right: 50%;
@@ -54,13 +54,14 @@ main > .map-container{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 999;
+  z-index: 1000;
+  gap: 1em;
 }
 
 .user_location_info .location_info{
   display: flex;
   align-items: center;
-  gap: 2em;
+  gap: 0.5em;
 }
 .location_info b{
   font-size: var(--font-md);
