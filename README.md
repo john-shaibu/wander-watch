@@ -41,7 +41,7 @@ cd wander-watch
 
 4. Install dependencies for both frontend and backend:
 ```
-cd frontend
+cd frontend-n/wander-watch
 npm install
 cd backend
 npm install
@@ -51,7 +51,7 @@ npm install
 6. Start the frontend and backend servers:
 ```
 For Frontend
-cd frontend
+cd frontend-n/wander-watch
 npm run dev
 ```
 ```
