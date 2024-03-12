@@ -62,9 +62,7 @@ const Settings = () => {
 
               <div className="flex justify-between">
                 <div className="mb-10">
-                  <h3 className=" font-[600] text-[16px] mb-2">
-                    Theme Mode
-                  </h3>
+                  <h3 className=" font-[600] text-[16px] mb-2">Theme Mode</h3>
                   <p className="text-[#878CA8] text-[10px] pr-6 mb-7">
                     Switch between light and dark mode{" "}
                   </p>
@@ -74,11 +72,10 @@ const Settings = () => {
 
               <div className="flex justify-between">
                 <div className="mb-10">
-                  <h3 className=" font-[600] text-[16px] mb-2">
-                   Notification
-                  </h3>
+                  <h3 className=" font-[600] text-[16px] mb-2">Notification</h3>
                   <p className="text-[#878CA8] text-[10px] pr-6 mb-7">
-                   Enable notification to be alerted when you've been in a location for more than dwell time.{" "}
+                    Enable notification to be alerted when you've been in a
+                    location for more than dwell time.{" "}
                   </p>
                 </div>
                 <div className="w-55"></div>
@@ -89,52 +86,54 @@ const Settings = () => {
               <h2 className="font-[700] text-[20px] mb-4">Advanced Settings</h2>
               <div className="flex justify-between">
                 <div className="mb-10">
-                  <h3 className=" font-[600] text-[16px] mb-2">
-                    Export Data
-                  </h3>
+                  <h3 className=" font-[600] text-[16px] mb-2">Export Data</h3>
                   <p className="text-[#878CA8] text-[10px] pr-8 mb-7">
-                  Export your Wander Watch data to a downloadable format for future reference or personal analysis.
+                    Export your Wander Watch data to a downloadable format for
+                    future reference or personal analysis.
                   </p>
                 </div>
                 <div className="w-55">
-                 <button className="primary-btn w-[6.5rem] h-[2.5rem]">Export</button>
+                  <button className="primary-btn w-[6.5rem] h-[2.5rem]">
+                    Export
+                  </button>
                 </div>
               </div>
-            
             </div>
 
             <div className="">
               <h2 className="font-[700] text-[20px] mb-4">Privacy Settings</h2>
               <div className="flex justify-between">
                 <div className="mb-10">
-                  <h3 className=" font-[600] text-[16px] mb-2">
-                    Export Data
-                  </h3>
+                  <h3 className=" font-[600] text-[16px] mb-2">Export Data</h3>
                   <p className="text-[#878CA8] text-[10px] pr-8 mb-7">
-                  Export your Wander Watch data to a downloadable format for future reference or personal analysis.
+                    Export your Wander Watch data to a downloadable format for
+                    future reference or personal analysis.
                   </p>
                 </div>
                 <div className="w-55">
-                 <button className="primary-btn w-[6.5rem] h-[2.5rem]">Export</button>
+                  <button className="primary-btn w-[6.5rem] h-[2.5rem]">
+                    Export
+                  </button>
                 </div>
               </div>
-            
             </div>
 
             <div className="">
               <h2 className="font-[700] text-[20px] mb-4">Privacy Settings</h2>
               <div className="flex justify-between">
                 <div className="mb-10">
-                  <h3 className=" font-[600] text-[16px] mb-2">
-                    Data sharing
-                  </h3>
+                  <h3 className=" font-[600] text-[16px] mb-2">Data sharing</h3>
                   <p className="text-[#878CA8] text-[10px] mb-7">
-                  Export your Wander Watch data to a downloadable format for future reference or personal analysis.
+                    Our location tracking web app collects and utilizes location
+                    and device information to deliver location-based services,
+                    improve user experience, and may share data with third-party
+                    service providers for analytics and legal compliance, all
+                    while ensuring stringent data security measures and allowing
+                    users the option to control data sharing and retention, with
+                    updates to the policy communicated transparently.{" "}
                   </p>
                 </div>
-                
               </div>
-            
             </div>
 
             <div className="">
@@ -144,15 +143,17 @@ const Settings = () => {
                   <h3 className=" font-[600] text-[16px] text-[#ff2f2f] mb-2">
                     Data Deletion
                   </h3>
-                  <p className="text-[#878CA8] text-[10px] pr-8 mb-7">
-                  Export your Wander Watch data to a downloadable format for future reference or personal analysis.
+                  <p className="text-[rgb(135,140,168)] text-[10px] pr-8 mb-7">
+                    Privacy Under Your Control:  Completely erase your location
+                    data from Wander Watch whenever you want.
                   </p>
                 </div>
                 <div className="w-55">
-                 <button className="red-btn w-[6.5rem] h-[2.5rem]">Delete</button>
+                  <button className="red-btn w-[6.5rem] h-[2.5rem]">
+                    Delete
+                  </button>
                 </div>
               </div>
-            
             </div>
           </div>
         </main>
