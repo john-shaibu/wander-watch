@@ -132,13 +132,20 @@ aside svg,aside svg *{
 }
 
 .wrapper {
-  display: grid;
+  display: flex;
   order: 3;
   overflow-x: hidden;
   background-color: inherit;
   height: calc(100vh - 96px);
 }
 
+.settings-wrapper {
+  display: grid;
+  order: 3;
+  overflow-x: hidden;
+  background-color: inherit;
+  height: calc(100vh - 96px);
+}
 @media screen and (max-width: 625px) {
   .main-container{
     grid-template-columns: 1fr;
