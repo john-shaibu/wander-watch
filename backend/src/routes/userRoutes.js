@@ -1,5 +1,5 @@
 const express = require('express')
-const { updatePassword, updateUser, userMetrics } = require('../controllers/userController')
+const { updatePassword, updateUser, userMetrics, discover } = require('../controllers/userController')
 const { verifyToken } = require('../middlewares/jwt')
 
 const userRouter = express.Router()
@@ -17,6 +17,6 @@ userRouter.put('/update-password', updatePassword)
 userRouter.get('/metrics', userMetrics)
 
 // metrics
-userRouter.get('/discover', userMetrics)
+// userRouter.get('/discover', discover)
 
 module.exports = userRouter
