@@ -1,13 +1,17 @@
 import { FullLogo, MailIcon, PasscodeIcon, Profile } from "../assets";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import '../styles/auth.css'
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PageHelmet from "../components/Helmet";
+import { useForm } from "react-hook-form"
+
 
 const Register = () => {
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
+  const {register, handleSubmit, watch, formState} = useForm();
+  const { errors } = formState
+  const navigate = useNavigate()
+  const onSubmit = () => navigate('/')
 
   return (
     <>
@@ -20,52 +24,29 @@ const Register = () => {
           </a>
           <div className="formContainer">
             <h2>Create a free account</h2>
-            <form action="" method="post">
+            <form onSubmit={handleSubmit(onSubmit)} method="post">
               <div>
-                <label htmlFor="username">Firstname and Lastname</label>
+                <label htmlFor="fullname">Firstname and Lastname</label>
                 <div>
                   <Profile />
-                  <input type="text" name="username" id="username" placeholder="Ex: John Shaibu" />
+                  <input type="text" {...register("fullname", { required: true})} placeholder="Ex: John Shaibu" id="fullname" />
                 </div>
               </div>
               <div>
                 <label htmlFor="user_email">Email Address</label>
                 <div>
                   <MailIcon />
-                  <input type="email" name="user_email" id="user_email" placeholder="Ex: johndoe@domain.com" />
+                  <input type="email" {...register("user_email", { required: true})} id="user_email" placeholder="Ex: johndoe@domain.com" />
                 </div>
               </div>
               <div>
-                <label htmlFor="user_password">Password</label>
+                <label htmlFor="phone_number">Phone number</label>
                 <div>
                   <PasscodeIcon className='passcodeIcons' />
-                  <input type= {
-                      showPassword ? "text" : "password"
-                    }
-                    value={password}
-                    onChange={(e) =>
-                        setPassword(e.target.value)
-                    }
-                    name="user_password" 
-                    id="user_password" 
-                    placeholder="Password" 
-                  />
-                </div>
-              </div>
-              <div>
-                <label htmlFor="confirm_password">Confirm Password</label>
-                <div>
-                  <PasscodeIcon />
-                  <input type= {
-                      showPassword ? "text" : "password"
-                    }
-                    value={password}
-                    onChange={(e) =>
-                        setPassword(e.target.value)
-                    }
-                    name="confirm_password" 
-                    id="confirm_password" 
-                    placeholder="Confirm Password" 
+                  <input type= 'text'
+                    {...register("phone_number", { required: true}, {pattern : /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/i })}
+                    id="phone_number" 
+                    // placeholder="Phone number" 
                   />
                 </div>
               </div>

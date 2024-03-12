@@ -24,6 +24,7 @@ import LocationIcon from './LocationIcons.svg?react'
 import ZoomInIcon from './zoom_in.svg?react'
 import ZoomOutIcon from './zoom_out.svg?react'
 import PreciseLocation from './precise_location.svg?react'
+import Spinner from './spinner.svg?react'
 
 
 
@@ -53,5 +54,6 @@ export {
     LocationIcon,
     ZoomInIcon,
     ZoomOutIcon,
-    PreciseLocation
+    PreciseLocation,
+    Spinner
 }

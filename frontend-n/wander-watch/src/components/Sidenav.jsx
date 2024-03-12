@@ -6,9 +6,6 @@ import { Link, NavLink } from 'react-router-dom'
 import { Discovery, Dashboard, Metrics, DefaultLogo } from '../assets'
 import { Icon } from './Icon'
 
-import {motion} from 'framer-motion'
-import { useAnimate } from 'framer-motion'
-
 import useClickOutside from "../hooks/useClickOutside";
 import { useRef } from 'react'
 

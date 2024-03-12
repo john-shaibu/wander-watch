@@ -15,7 +15,7 @@ let state = '';
 let country = ''
 let formatted_address = '';
 
-const Map = () => {
+const DiscoveryMap = () => {
   const [, location] = useLocation()
   const mapRef = useRef(null)
   const { loading: loadingLocation, value: locationTitle, error: locationError } = useAsync(getLocationAdress(location?.longitude, location?.latitude), [ location ])
@@ -61,10 +61,10 @@ const Map = () => {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             <CustomMarker title={!loadingLocation && locationTitle ? formatted_address : locationFallback}/>
-               {!formatted_address ? '' : createPortal(<UserLocationInfo refined_location_name={formatted_address} zoomDelta={1} />, document.querySelector('.map-container'))}    
+               {/* {!formatted_address ? '' : createPortal(<UserLocationInfo refined_location_name={formatted_address} zoomDelta={1} />, document.querySelector('.map-container'))}     */}
         </MapContainer>}
     </div>
   )
 }
 
-export default Map
+export default DiscoveryMap

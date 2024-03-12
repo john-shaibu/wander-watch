@@ -25,13 +25,27 @@ main > .map-container{
 .map-container .leaflet-container{
   height: 100%;
 }
+.map-container .map_loader{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2em;
+  background-color: var(--color-lightest);
+}
+.map_loader b{
+  color: var(--color-md);
+  font-weight: 500;
+}
 .user_location_info{
   background-color: var(--color-lightest);
   border: 1px solid var(--color-border);
   width: calc(100% - 4em);
   position: absolute;
   border-radius: 8px;
-  padding: 2em;
+  padding: 1.5em;
   bottom: 2em;
   left: 50%;
   right: 50%;
@@ -39,16 +53,18 @@ main > .map-container{
   box-shadow: var(--box-shadow);
   display: flex;
   justify-content: space-between;
-  z-index: 999;
+  align-items: center;
+  z-index: 1000;
+  gap: 1em;
 }
 
 .user_location_info .location_info{
   display: flex;
   align-items: center;
-  gap: 1em;
+  gap: 0.5em;
 }
 .location_info b{
-  font-size: var(--font-2xl);
+  font-size: var(--font-md);
   color: var(--color-darkest);
 }
 
