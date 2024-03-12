@@ -28,7 +28,7 @@ const Settings = () => {
             <h2>General Settings</h2>
             <div>
               <div>
-                <h3>Tracking I nterver</h3>
+                <h3 className=''>Tracking Intervel</h3>
               </div>
               <div>
 
