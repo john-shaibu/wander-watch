@@ -1,0 +1,13 @@
+.settings-container{
+    border: 1px solid var(--color-border);
+    background-color: var(--color-lightest);
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    width: 50%;
+    border-radius: 12px;
+}
+.wrapper main{
+    display: flex;
+    justify-content: center;
+}

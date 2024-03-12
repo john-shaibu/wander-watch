@@ -5,6 +5,7 @@ import Sidenav from '../components/Sidenav'
 import PageHelmet from '../components/Helmet'
 
 import '../styles/dashboard.css'
+import '../styles/settings.css'
 import { useToggle } from '../hooks/useToggle'
 
 
@@ -22,7 +23,11 @@ const Settings = () => {
       <div className={`side-nav-underlay${open ? ' open': ''}`}></div>
       <div className="wrapper">
         <main>
-           this is the settings page
+           <div className='settings-container'>
+            <div>
+            <h2>General Settings</h2>
+            </div>
+           </div>
         </main>
       </div>
     </div>
