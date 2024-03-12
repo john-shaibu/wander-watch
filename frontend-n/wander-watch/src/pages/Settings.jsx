@@ -1,7 +1,7 @@
 
 import Header from '../components/Header'
 import Sidenav from '../components/Sidenav'
-
+import TimeDropdown from '../components/TimeDropDown'
 import PageHelmet from '../components/Helmet'
 
 import '../styles/dashboard.css'
@@ -25,13 +25,14 @@ const Settings = () => {
         <main>
            <div className='settings-container'>
             <div>
-            <h2>General Settings</h2>
-            <div>
+            <h2 className='font-[700] text-[20px]'>General Settings</h2>
+            <div className='flex'>
               <div>
-                <h3 className=''>Tracking Intervel</h3>
+                <h3 className=' font-[600] text-[16px] my-5'>Tracking Interval</h3>
+                <p className='text-[#878CA8] text-[10px] pr-6'>This setting controls how often the app updates your location. A shorter interval means more frequent updates, which can drain your battery faster, but provides a more precise track of your movements. A longer interval uses less battery but may not capture your location as accurately, especially if you're moving quickly</p>
               </div>
-              <div>
-
+              <div className='w-55'>
+<TimeDropdown/>
               </div>
             </div>
             </div>

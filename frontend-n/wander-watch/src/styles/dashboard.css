@@ -14,14 +14,14 @@
 }
 
 .settings-wrapper main{
-  display: flex;
-  justify-content: center;
-  gap: 1.5em;
-  width: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: var(--space-xl);
-  max-width: 1600px;
+  display: flex !important;
+  justify-content: center !important;
+  gap: 1.5em !important;
+  width: 100% !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding: var(--space-xl) !important;
+  max-width: 1600px !important;
 
   /* background-color: aliceblue; */
   
