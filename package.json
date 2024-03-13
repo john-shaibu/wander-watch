@@ -7,12 +7,12 @@
     "author": "Zidio Internship Team Group 2",
     "license": "MIT",
     "workspaces": [
-        "frontend-n",
+        "frontend-n/wander-watch",
         "backend"
     ],
     "scripts": {
         "install": "npm install",
-        "start": "concurrently \"npm workspaces backend start\" \"npm workspaces frontend-n dev\""
+        "start": "concurrently \"npm run start --workspace=backend\" \"npm run dev --workspace=frontend-n/wander-watch\""
     },
     "devDependencies": {
         "concurrently": "^8.2.2"

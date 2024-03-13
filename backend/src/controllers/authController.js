@@ -13,23 +13,22 @@ const prisma = new PrismaClient();
 const registerUser = expressAsyncHandler(async (req, res) => {
   const { fullname, email, password, confirmpassword } = req.body;
 
-  // Validate the user input
-  const { error } = registrationValidation.validate(req.body);
-  if (error) throw new InvalidRequestError(error.details[0].message);
-
-  // Check if user exists
-  const userExists = await prisma.user.findUnique({
-    where: { email },
-  });
-  if (userExists) {
-    throw new ForbiddenRequestError('User already Exists')
-  }
-
-  // Check if password and confirm password match
-  if (password !== confirmpassword)
-    throw new InvalidRequestError('Passwords do not match')
-
   try {
+    // Validate the user input
+    const { error } = registrationValidation.validate(req.body);
+    if (error) throw new InvalidRequestError(error.details[0].message);
+
+    // Check if user exists
+    const userExists = await prisma.user.findUnique({
+      where: { email },
+    });
+    if (userExists) {
+      throw new ForbiddenRequestError('User already Exists')
+    }
+
+    // Check if password and confirm password match
+    if (password !== confirmpassword)
+      throw new InvalidRequestError('Passwords do not match')
     // Hash the password
     const hashedPassword = await hashPassword(password);
 
@@ -44,29 +43,27 @@ const registerUser = expressAsyncHandler(async (req, res) => {
   } catch (error) {
     throw new AppError(error)
   }
-
 });
 
 // Login User
 const loginUser = expressAsyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
-  // Validate the user input
-  const { error } = loginValidation.validate(req.body);
-  if (error) throw new InvalidRequestError(error.details[0].message);
-
-  // Check if user exists
-  const user = await prisma.User.findUnique({
-    where: { email },
-  });
-  if (!user) throw new NotFoundError('User')
-
-  // Compare password
-  const validPassword = await comparedPassword(password, user.password);
-  if (!validPassword)
-    throw new InvalidRequestError('Invalid password');
-
   try {
+    // Validate the user input
+    const { error } = loginValidation.validate(req.body);
+    if (error) throw new InvalidRequestError(error.details[0].message);
+    // Check if user exists
+    const user = await prisma.User.findUnique({
+      where: { email },
+    });
+    if (!user) throw new NotFoundError('User')
+
+    // Compare password
+    const validPassword = await comparedPassword(password, user.password);
+    if (!validPassword)
+      throw new InvalidRequestError('Invalid password');
+
     // Generate token
     const token = generateToken(user.id);
     res.header('auth-token', token);

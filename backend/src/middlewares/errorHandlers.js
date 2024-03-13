@@ -8,12 +8,11 @@ const notFound = (req, res, next) => {
 
 // Last error handler. Structures the error to be recieved by the client
 const errorHandler = (err, req, res, next) => {
-    console.log(err);
     res.status(err.statusCode)
     res.json({
         status: 'error',
         message: err.message,
-        // stack:  err.stack
+        stack:  err.stack
     })
 }
 
