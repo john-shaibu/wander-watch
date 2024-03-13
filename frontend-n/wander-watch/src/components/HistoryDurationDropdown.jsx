@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-const TimeDropdown = ({ onSelect }) => {
-  const [selectedTime, setSelectedTime] = useState('10min');
+const HistoryDurationDropdown = ({ onSelect }) => {
+  const [selectedTime, setSelectedTime] = useState('1 week');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -37,27 +37,27 @@ const TimeDropdown = ({ onSelect }) => {
       </button>
 
       {isDropdownOpen && (
-        <div className="origin-top-right absolute right-0 mt-2 w-55 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ">
+        <div className="origin-top-right relative right-0 mt-2 w-55 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ">
           <div className="py-1" role="none">
             <button
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full text-left"
-              onClick={() => handleOptionChange('10minutes')}
+              onClick={() => handleOptionChange('1 week')}
             >
-              10 minutes
+              1 week
             </button>
             <button
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full text-left"
-              onClick={() => handleOptionChange('20minutes')}
+              onClick={() => handleOptionChange('1 month')}
             >
-              20 minutes
+              1 month
             </button>
-          
+            {/* Add more options as needed */}
 
             <button
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full text-left"
-              onClick={() => handleOptionChange('1hour')}
+              onClick={() => handleOptionChange('1 year')}
             >
-              1hour
+              1 year
             </button>
           </div>
         </div>
@@ -66,4 +66,4 @@ const TimeDropdown = ({ onSelect }) => {
   );
 };
 
-export default TimeDropdown;
+export default HistoryDurationDropdown;
