@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer} from 'react-leaflet';
+import { MapContainer, TileLayer, useMap} from 'react-leaflet';
 import useLocation from '../hooks/useLocation'
 import { useRef } from 'react';
 import { createPortal } from 'react-dom'
@@ -18,15 +18,17 @@ let formatted_address = '';
 const Map = () => {
   const [, location] = useLocation()
   const mapRef = useRef(null)
+
   const { loading: loadingLocation, value: locationTitle, error: locationError } = useAsync(getLocationAdress(location?.longitude, location?.latitude), [ location ])
   const  locationFallback = 'omo!'
   
   if (locationTitle != null) {
+    console.log(locationTitle);
     const results = locationTitle.results;
     if (results[0]){
       let address_components = results[0].address_components;
       
-
+      console.log(address_components)
       for (var i = 0; i < address_components.length; i++) {
           if (address_components[i].types[0] === "street_number") {
               Street_no = address_components[i].long_name;    
@@ -47,7 +49,7 @@ const Map = () => {
           }
         }
       formatted_address = `${!Street_no ? '' : Street_no + ', '}${street_name}, ${city}, ${state}, ${country}`
-      // console.log(`${!Street_no ? '' : Street_no+','} street_name, city, state, country`)
+      console.log(`${!Street_no ? '' : Street_no+','} street_name, city, state, country`)
       console.log(formatted_address)
     }
   } else {

@@ -157,6 +157,7 @@ main > .map-container{
 }
 .history_container h4{
   font-size: var(--font-xl);
+  font-weight: 700;
   color: var(--color-darkest);
 }
 .history_container .time_spent{

@@ -1,17 +1,30 @@
 import { FullLogo, MailIcon, PasscodeIcon, Profile } from "../assets";
 import { Link, useNavigate } from "react-router-dom";
 import '../styles/auth.css'
-
-import { useEffect, useState } from "react";
 import PageHelmet from "../components/Helmet";
 import { useForm } from "react-hook-form"
+import { useMutation } from "../hooks/useMutation";
+import { registerUser } from "../request";
 
 
 const Register = () => {
-  const {register, handleSubmit, watch, formState} = useForm();
+  const { register, handleSubmit, watch, formState } = useForm();
   const { errors } = formState
+  const registerMutation = useMutation((params, config) => registerUser(params, config))
   const navigate = useNavigate()
-  const onSubmit = () => navigate('/')
+  const onSubmit = (data) => {
+    registerMutation.mutate({}, {
+      onSuccess(successData){
+        navigate('/otp-verification')
+      },
+      onError(){
+
+      },
+      onSettled({value, error, retries}){
+        console.log(retries);
+      }
+    })
+  }
 
   return (
     <>
@@ -29,35 +42,47 @@ const Register = () => {
                 <label htmlFor="fullname">Firstname and Lastname</label>
                 <div>
                   <Profile />
-                  <input type="text" {...register("fullname", { required: true})} placeholder="Ex: John Shaibu" id="fullname" />
+                  <input type="text" {...register("fullname", { required: true })} placeholder="Ex: John Shaibu" id="fullname" />
                 </div>
               </div>
               <div>
                 <label htmlFor="user_email">Email Address</label>
                 <div>
                   <MailIcon />
-                  <input type="email" {...register("user_email", { required: true})} id="user_email" placeholder="Ex: johndoe@domain.com" />
+                  <input type="email" {...register("user_email", { required: true })} id="user_email" placeholder="Ex: johndoe@domain.com" />
                 </div>
               </div>
               <div>
-                <label htmlFor="phone_number">Phone number</label>
+                <label htmlFor="password">Password</label>
                 <div>
                   <PasscodeIcon className='passcodeIcons' />
-                  <input type= 'text'
-                    {...register("phone_number", { required: true}, {pattern : /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/i })}
-                    id="phone_number" 
-                    // placeholder="Phone number" 
+                  <input type='password'
+                    {...register("password", { required: true }, { pattern: /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/i })}
+                    id="password"
+                    placeholder="Password"
+                  />
+                </div>
+              </div>
+              <div>
+                <label htmlFor="confirm_password">Confirm password</label>
+                <div>
+                  <PasscodeIcon className='passcodeIcons' />
+                  <input type='password'
+                    {...register("confirm_password", { required: true }, { pattern: /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/i })}
+                    id="confirm_password"
+                    placeholder="Confirm password"
                   />
                 </div>
               </div>
               <button type="submit" className="primary-btn">Create my account</button>
             </form>
-            <p>Already have an account? <Link to='/login'>Login</Link></p>
+            <p>Already have an account? <Link to='/login'>Login</Link> {registerMutation.isMutating}</p>
           </div>
         </div>
       </div>
     </>
 
-)}
+  )
+}
 
 export default Register

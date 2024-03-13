@@ -18,6 +18,7 @@ header{
 header > h2{
     color: var(--color-darkest);
     font-size: var(--font-2xl);
+    font-weight: 600;
 }
 header > .search_notification_menu{
     display: flex;

@@ -2,7 +2,7 @@
 
   /* COLOURS ========= */
 
-  --bg-primary: rgb(61, 85, 204);
+  --bg-primary: rgb(61, 85, 204) !important;
   --color-darkest: rgb(20, 26, 51);
   --color-dark: rgb(20, 27, 51);
   --color-md: rgb(135, 140, 168);
@@ -37,7 +37,7 @@
 }
 
 .primary-btn{
-  background-color: var(--bg-primary);
+  background-color: var(--bg-primary) !important;
   position: relative;
   color: var(--color-lightest);
   cursor: pointer;
