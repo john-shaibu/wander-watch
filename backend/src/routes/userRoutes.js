@@ -15,11 +15,10 @@ userRouter.put('/update', verifyToken, updateUser);
 // Update User password
 userRouter.put('/update-password', verifyToken, updatePassword);
 
+// metrics
+// userRouter.get('/metrics', userMetrics);
 
 // metrics
-userRouter.get('/metrics', userMetrics);
-
-// metrics
-userRouter.get('/discover', userMetrics)
+// userRouter.get('/discover', userMetrics)
 
 module.exports = userRouter;
