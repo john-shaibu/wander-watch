@@ -13,15 +13,18 @@ const Register = () => {
   const registerMutation = useMutation((params, config) => registerUser(params, config))
   const navigate = useNavigate()
   const onSubmit = (data) => {
-    registerMutation.mutate({}, {
-      onSuccess(successData){
+    registerMutation.mutate({
+      fullname: data.fullname, email: data.user_email, password: data.password
+    }, {
+      onSuccess(successData) {
+        console.log(successData);
         navigate('/otp-verification')
       },
-      onError(){
-
+      onError(err) {
+        console.log(err);
       },
-      onSettled({value, error, retries}){
-        console.log(retries);
+      onSettled({ value, error }) {
+        
       }
     })
   }

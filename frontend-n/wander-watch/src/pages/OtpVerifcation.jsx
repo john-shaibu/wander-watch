@@ -1,8 +1,78 @@
 import React from 'react'
+import PageHelmet from '../components/Helmet'
+import { FullLogo } from '../assets'
+import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
+import { useMutation } from '../hooks/useMutation'
+import { MailIcon, PasscodeIcon } from '../assets'
+import { Link } from 'react-router-dom'
+
+import { verifyOTP } from '../request'
+
+
 
 const OtpVerifcation = () => {
+  const { verify, handleSubmit, formState : {errors} } = useForm();
+  // const { errors } = formState
+  const _verify = () => { 
+    return(
+      verify
+    )
+   };
+
+  const verifyOTPMutation = useMutation((params, config) => verifyOTP(params, config))
+  const navigate = useNavigate()
+  const onSubmit = (data) => {
+    // verifyOTPMutation.mutate({}, {
+    //   onSuccess(successData){
+    //     navigate('/otp-verification')
+    //   },
+    //   onError(){
+      
+      //   },
+      //   onSettled({value, error, retries}){
+        //     console.log(retries);
+        //   }
+        // })
+        console.log(data)
+        navigate('/')
+
+
+  }
   return (
-    <div>OtpVerifcation</div>
+    <>
+      <div className="container">
+        <PageHelmet title='OTP verification' keywords='location tracker, wander watch, location monitor' description='Wander watch OTP verification' />
+
+        <div className="login">
+          <a href="#" className="logoLink">
+            <FullLogo />
+          </a>
+          <div className="otpFormContainer">
+            <b>Almost There! Verify Your Email Address</b>
+            <p>
+              We've sent a verification code to <span>johnshaibu277@gmail.com</span>.
+              Please enter the code below to complete your account setup.
+            </p>
+            <form action="" onSubmit={handleSubmit(onSubmit)} method="post">
+              <div className='otp_input'>
+                  <input type= 'text'
+                    {..._verify('code', {required : true})} 
+                    id="otp" 
+                    placeholder="-----" 
+                    minLength={5}
+                    maxLength={5}
+                    autoFocus
+                    />
+                    {errors.exampleRequired && <span>This field is required</span>}
+                    <p>Didn't receive a code? <span>Resend</span></p>
+              </div>
+              <button type="submit" className="primary-btn">Verify account</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </>
   )
 }
 

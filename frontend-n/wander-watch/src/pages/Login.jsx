@@ -6,26 +6,26 @@ import { useMutation } from "../hooks/useMutation";
 import { useForm } from 'react-hook-form'
 import { LoginUser } from "../request";
 
-import { useState } from "react";
 import PageHelmet from "../components/Helmet";
 
 const Login = () => {
-  const { _login, handleSubmit, watch, formState } = useForm();
+  const { register, handleSubmit, watch, formState } = useForm();
   const { errors } = formState
   const loginMutation = useMutation((params, config) => LoginUser(params, config))
+  console.log(watch());
   const navigate = useNavigate()
   const onSubmit = (data) => {
-    // loginMutation.mutate({}, {
-    //   onSuccess(successData){
-    //     navigate('/otp-verification')
-    //   },
-    //   onError(){
+    loginMutation.mutate({}, {
+      onSuccess(successData){
+        navigate('/otp-verification')
+      },
+      onError(){
 
-    //   },
-    //   onSettled({value, error, retries}){
-    //     console.log(retries);
-    //   }
-    // })
+      },
+      onSettled({value, error, retries}){
+        console.log(retries);
+      }
+    })
     console.log(data)
   }
   return (
@@ -45,7 +45,7 @@ const Login = () => {
                 <div>
                   <MailIcon />
                   <input type="email" 
-                    // {..._login('email', {required : true})} 
+                    {...register('email', {required : true})} 
                     id="user_email" 
                     placeholder="Ex: johndoe@domain.com" 
                   />
@@ -56,7 +56,7 @@ const Login = () => {
                 <div>
                   <PasscodeIcon className='passcodeIcons' />
                   <input type= 'password'
-                    // {..._login('password', {required: true})} 
+                    {...register('password', {required: true})} 
                     id="user_password" 
                     placeholder="Password" 
                   />

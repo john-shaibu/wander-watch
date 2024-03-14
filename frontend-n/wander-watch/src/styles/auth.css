@@ -21,9 +21,11 @@
     border: 1px solid var(--color-border);
 
 }
+
 .formContainer > h2{
     font-size: var(--font-2xl);
     color: var(--color-darkest);
+    font-weight: 600;
 }
 .formContainer > form{
     width: 100%;
@@ -93,6 +95,69 @@ form > .other_login_form_actions{
 }
 .formContainer > p a{
     color: var(--bg-primary) !important;
+}
+
+
+/* OTP VERIFICATION PAGE */
+.otpFormContainer{
+    background-color: var(--color-lightest);
+    padding: var(--space-largest);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    /* background-color: green; */
+    gap: var(--space-largest);
+    border-radius: 16px;
+    width: 100%;
+    box-shadow: 0 4px 36px rgba(0, 0, 0, 8%);
+    border: 1px solid var(--color-border);
+}
+
+.otpFormContainer > p{
+    font-size: var(--font-sm);
+    text-align: center;
+    font-weight: 600;
+}
+.otpFormContainer > p > span{
+    color: var(--bg-primary);
+}
+.otpFormContainer > form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3em;
+}
+.otp_input{
+    align-items: center;
+    width: 100%;
+    gap: 1.5em !important;
+}
+
+.otp_input > input{
+    text-align: center;
+    height: 3.5em;
+    border-radius: 8px;
+    letter-spacing: 10px;
+    font-weight: 700;
+    border: 1px solid var(--color-border);
+    outline: 2px solid transparent;
+    transition: all .3s;
+}
+.otp_input > input:focus{
+    outline-color: var(--bg-primary);
+}
+.otp_input > p{
+    font-size: var(--font-sm);
+    text-align: center;
+    font-weight: 600;
+}
+.otp_input > p > span{
+    color: var(--bg-primary);
+    cursor: pointer;
+}
+.otpFormContainer button{
+    width: 100%;
 }
 
 @media screen and (max-width : 625px) {

@@ -9,6 +9,8 @@ import UserProfile from "./pages/UserProfile"
 import UserPreferences from "./pages/UserPreferences"
 import Settings from "./pages/Settings"
 import UpdatePassword from "./pages/UpdatePassword"
+import OtpVerifcation from "./pages/OtpVerifcation"
+
 
 
 
@@ -24,7 +26,7 @@ const WebRoutes = () => {
         <Route path='preferences' element={<UserPreferences />} />
         <Route path='settings' element={<Settings />} />
         <Route path='recover' element={<Settings />} />
-        <Route path='otp-verification' element={<UpdatePassword />} />
+        <Route path='otp-verification' element={<OtpVerifcation />} />
         <Route path='update-password' element={<UpdatePassword />} />
     </Routes>
   )

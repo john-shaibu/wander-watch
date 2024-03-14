@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 function ToggleButton(props) {
   return (
-    <button className={`w-[5.5rem] h-[2.5rem] ${props.active ? 'primary-btn' : ''}`} onClick={props.onClick}>
+    <button className={`w-[5.5rem] h-[2.5rem] font-medium  ${props.active ? 'primary-btn' : ''}`} onClick={props.onClick}>
       {props.label}
     </button>
   );
@@ -16,7 +16,7 @@ function ToggleThemes() {
   };
 
   return (
-    <div className=" flex justify-between items-center rounded-md w-[12rem] h-[3.5rem] px-2 border-2 border-[#DADEF2]">
+    <div className=" flex justify-between items-center rounded-md w-[12rem] p-2 border border-[#DADEF2]">
       <ToggleButton
         label="Light"
         active={isLightButton}

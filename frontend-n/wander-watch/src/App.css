@@ -161,8 +161,15 @@ aside svg,aside svg *{
   height: calc(100vh - 96px);
 
 }
+.profile-wrapper{
+  order: 3;
+  overflow-x: hidden;
+  background-color: inherit;
+  height: calc(100vh - 96px);
+
+}
 @media screen and (min-width : 1600px) {
-  .wrapper, .settings-wrapper{
+  .wrapper, .settings-wrapper, .profile-wrapper{
     position: relative;
   }
   .wrapper main {
@@ -190,13 +197,16 @@ aside svg,aside svg *{
 
 @media screen and (max-width: 992px) {
   .wrapper main{
-    grid-template-columns: 100%;
+    grid-template-columns: 100% !important;
   }
   .settings-wrapper main{
     width: 100%;
   }
+  .profile-wrapper main{
+    width: 100%;
+  }
   .location_history{
-    display: none;
+    display: none !important;
   }
   .map-container{
     width: 100%;

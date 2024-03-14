@@ -20,7 +20,7 @@ const Settings = () => {
         keywords="location tracker, wander watch, location monitor"
         description="Wander watch Dashboard page"
       />
-      <Header headerName="Metrics" />
+      <Header headerName="Settings" />
       <Sidenav toggleState={toggleState} />
       <div className={`side-nav-underlay${open ? " open" : ""}`}></div>
       <div className="settings-wrapper">
@@ -34,7 +34,7 @@ const Settings = () => {
                       <h3 className=" font-[600] text-[18px] mb-2">
                         Tracking Interval
                       </h3>
-                      <p className="text-[#878CA8] text-[.9em] md:pr-6">
+                      <p className="text-[#878ca8] text-[.9em] md:pr-6">
                         This setting controls how often the app updates your
                         location. A shorter interval means more frequent updates,
                         which can drain your battery faster, but provides a more
@@ -51,7 +51,7 @@ const Settings = () => {
                 </div>
                 <div className="flex flex-col md:flex-row justify-between">
                   <div className="">
-                    <h3 className=" font-[600] text-[18px] mb-2">
+                    <h3 className=" font-[600] text-[18px]">
                       Location History
                     </h3>
                     <p className="text-[#878CA8] text-[.9em] md:pr-6">
