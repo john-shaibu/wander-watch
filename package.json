@@ -12,9 +12,10 @@
     ],
     "scripts": {
         "install": "npm install",
-        "start": "concurrently \"npm run start --workspace=backend\" \"npm run dev --workspace=frontend-n/wander-watch\""
+        "start": "concurrently \"npm --prefix backend start\" \"npm --prefix frontend-n/wander-watch run dev\""
     },
     "devDependencies": {
         "concurrently": "^8.2.2"
     }
 }
+
