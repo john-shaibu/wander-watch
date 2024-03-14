@@ -29,7 +29,7 @@ const Settings = () => {
               <div className="flex flex-col gap-8">
                 <div>
                   <h2 className="font-[700] text-[1.6em] mb-8">General Settings</h2>
-                  <div className="flex justify-between">
+                  <div className="flex flex-col md:flex-row justify-between">
                     <div className="">
                       <h3 className=" font-[600] text-[18px] mb-2">
                         Tracking Interval
@@ -49,7 +49,7 @@ const Settings = () => {
                   </div>
 
                 </div>
-                <div className="flex justify-between">
+                <div className="flex flex-col md:flex-row justify-between">
                   <div className="">
                     <h3 className=" font-[600] text-[18px] mb-2">
                       Location History
@@ -64,7 +64,7 @@ const Settings = () => {
                   </div>
                 </div>
 
-                <div className="flex justify-between">
+                <div className="flex flex-col md:flex-row justify-between">
                   <div className="">
                     <h3 className=" font-[600] text-[18px] mb-2">Theme Mode</h3>
                     <p className="text-[#878CA8] text-[.9em] pr-6">
@@ -76,7 +76,7 @@ const Settings = () => {
                   
                 </div>
 
-                <div className="flex justify-between">
+                <div className="flex flex-col md:flex-row justify-between">
                   <div className="">
                     <h3 className=" font-[600] text-[18px] mb-2">Notification</h3>
                     <p className="text-[#878CA8] text-[.9em] md:pr-6">
@@ -90,8 +90,8 @@ const Settings = () => {
 
               <div className="flex flex-col gap-8">
                 <h2 className="font-[700] text-[1.6em]">Advanced Settings</h2>
-                <div className="flex justify-between">
-                  <div className="mb-10">
+                <div className="flex flex-col md:flex-row justify-between">
+                  <div className="md:mb-10">
                     <h3 className=" font-[600] text-[18px] mb-2">Export Data</h3>
                     <p className="text-[#878CA8] text-[.9em] md:pr-8">
                       Export your Wander Watch data to a downloadable format for
@@ -124,12 +124,12 @@ const Settings = () => {
                     </p>
                   </div>
                 </div>
-                <div className="flex justify-between">
-                  <div className="mb-10">
+                <div className="flex flex-col md:flex-row justify-between">
+                  <div className="md:mb-10">
                     <h3 className=" font-[600] text-[18px] text-[#ff2f2f] mb-2">
                       Data Deletion
                     </h3>
-                    <p className="text-[rgb(135,140,168)] text-[.9em] md:pr-8 mb-7">
+                    <p className="text-[rgb(135,140,168)] text-[.9em] md:pr-8 md:mb-7">
                       Privacy Under Your Control:  Completely erase your location
                       data from Wander Watch whenever you want.
                     </p>
