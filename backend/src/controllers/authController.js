@@ -65,7 +65,11 @@ const verifyOTP = expressAsyncHandler(async (req, res) => {
   if (!user) {
     throw new NotFoundError('User not found');
   }
-
+  if (user.isVerified) {
+    return res.status(400).json({
+      message: 'User already verified',
+    });
+  }
   const matchedVerificationCode = await comparedPassword(
     verificationCode.toString(),
     user.verificationCode
@@ -73,6 +77,15 @@ const verifyOTP = expressAsyncHandler(async (req, res) => {
 
   if (!matchedVerificationCode) {
     throw new InvalidRequestError('Invalid verification code');
+  }
+
+  const verificationCodeExpirationTime = new Date(user.createdAt);
+  verificationCodeExpirationTime.setMinutes(
+    verificationCodeExpirationTime.getMinutes() + 5
+  );
+
+  if (verificationCodeExpirationTime < new Date()) {
+    throw new InvalidRequestError('Verification code has expired');
   }
 
   await prisma.User.update({
