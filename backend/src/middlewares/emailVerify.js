@@ -23,6 +23,7 @@ const sendVerificationEmail = async (email, verificationCode) => {
       html: `<p>Dear user,</p>
          <p>Thank you for registering with wander-watch. Please use the following verification code to verify your email address:</p>
          <p><strong>${verificationCode}</strong></p>
+         <p>Your verification code expires in 5 minutes</p>
          <p>Alternatively, if the code doesn't work, you can click<a href="link_to_verification_page"> here</a> to verify your email address.</p>
          <p>If you didn't register with wander-watch, please ignore this email.</p>`,
     };
