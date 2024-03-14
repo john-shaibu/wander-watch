@@ -7,7 +7,7 @@
     "author": "Zidio Internship Team Group 2",
     "license": "MIT",
     "workspaces": [
-        "frontend-n",
+        "frontend-n/wander-watch",
         "backend"
     ],
     "scripts": {

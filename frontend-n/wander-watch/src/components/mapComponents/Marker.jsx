@@ -4,12 +4,17 @@ import { useEffect, useState } from 'react'
 const CustomMarker = ({ title = '' }) => {
     const [position, setPosition] = useState(null)
     const mapObject = useMap();
+    console.log(mapObject);
     useEffect(() => {
       setPosition(mapObject['_lastCenter'])
       mapObject.flyTo(mapObject['_lastCenter'])
       mapObject.zoomIn(8)
       mapObject.locate()
     }, [])
+
+    useEffect(() => {
+      console.log(mapObject)
+    })
 
     useMapEvents({
       click(){

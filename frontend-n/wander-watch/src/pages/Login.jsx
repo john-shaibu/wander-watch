@@ -1,14 +1,33 @@
 import { FullLogo, MailIcon, PasscodeIcon } from "../assets";
 import { Link } from "react-router-dom";
 import '../styles/auth.css'
+import { useNavigate } from "react-router-dom";
+import { useMutation } from "../hooks/useMutation";
+import { useForm } from 'react-hook-form'
+import { LoginUser } from "../request";
 
 import { useState } from "react";
 import PageHelmet from "../components/Helmet";
 
 const Login = () => {
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
+  const { _login, handleSubmit, watch, formState } = useForm();
+  const { errors } = formState
+  const loginMutation = useMutation((params, config) => LoginUser(params, config))
+  const navigate = useNavigate()
+  const onSubmit = (data) => {
+    // loginMutation.mutate({}, {
+    //   onSuccess(successData){
+    //     navigate('/otp-verification')
+    //   },
+    //   onError(){
 
+    //   },
+    //   onSettled({value, error, retries}){
+    //     console.log(retries);
+    //   }
+    // })
+    console.log(data)
+  }
   return (
     <>
       <div className="container">
@@ -20,26 +39,24 @@ const Login = () => {
           </a>
           <div className="formContainer">
             <h2>Login to your account</h2>
-            <form action="" method="post">
+            <form action="" onSubmit={handleSubmit(onSubmit)} method="post">
               <div>
                 <label htmlFor="user_email">Email Address</label>
                 <div>
                   <MailIcon />
-                  <input type="email" name="user_email" id="user_email" placeholder="Ex: johndoe@domain.com" />
+                  <input type="email" 
+                    // {..._login('email', {required : true})} 
+                    id="user_email" 
+                    placeholder="Ex: johndoe@domain.com" 
+                  />
                 </div>
               </div>
               <div>
                 <label htmlFor="user_password">Password</label>
                 <div>
                   <PasscodeIcon className='passcodeIcons' />
-                  <input type= {
-                      showPassword ? "text" : "password"
-                    }
-                    value={password}
-                    onChange={(e) =>
-                        setPassword(e.target.value)
-                    }
-                    name="user_password" 
+                  <input type= 'password'
+                    // {..._login('password', {required: true})} 
                     id="user_password" 
                     placeholder="Password" 
                   />

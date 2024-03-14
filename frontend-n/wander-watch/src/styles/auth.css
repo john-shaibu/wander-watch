@@ -84,11 +84,15 @@ form > .other_login_form_actions{
 }
 .other_login_form_actions a{
     font-weight: 500;
-    color: var(--bg-primary);
+    color: var(--bg-primary) !important;
 }
 .formContainer > p{
-    font-size: var(--font-sm);
-    font-weight: 500;
+    font-size: var(--font-base);
+    font-weight: 600;
+    color: var(--color-darkest);
+}
+.formContainer > p a{
+    color: var(--bg-primary) !important;
 }
 
 @media screen and (max-width : 625px) {

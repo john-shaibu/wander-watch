@@ -6,6 +6,7 @@ const {
 const { hashPassword, comparedPassword } = require('../middlewares/hashing');
 const { generateToken } = require('../middlewares/jwt');
 const { PrismaClient } = require('@prisma/client');
+
 const {
   InvalidRequestError,
   AppError,
@@ -15,10 +16,12 @@ const {
   generateVerificationCode,
   sendVerificationEmail,
 } = require('../middlewares/emailVerify');
+=
 const prisma = new PrismaClient();
 
 // Register a new user
 const registerUser = expressAsyncHandler(async (req, res) => {
+
   const { error } = registrationValidation.validate(req.body);
   if (error) {
     throw new InvalidRequestError(error.details[0].message);
@@ -102,30 +105,34 @@ const verifyOTP = expressAsyncHandler(async (req, res) => {
   });
 });
 
-// Login user
+// Login User
 const loginUser = expressAsyncHandler(async (req, res) => {
-  const { error } = loginValidation.validate(req.body);
-  if (error) {
-    throw new InvalidRequestError(error.details[0].message);
-  }
   const { email, password } = req.body;
-  const user = await prisma.User.findUnique({
-    where: {
-      email,
-    },
-  });
-  if (!user) {
-    throw new NotFoundError('User not found');
+
+  try {
+    // Validate the user input
+    const { error } = loginValidation.validate(req.body);
+    if (error) throw new InvalidRequestError(error.details[0].message);
+    // Check if user exists
+    const user = await prisma.User.findUnique({
+      where: { email },
+    });
+    if (!user) throw new NotFoundError('User')
+
+    // Compare password
+    const validPassword = await comparedPassword(password, user.password);
+    if (!validPassword)
+      throw new InvalidRequestError('Invalid password');
+
+    // Generate token
+    const token = generateToken(user.id);
+    res.header('auth-token', token);
+
+    res.status(200).json({ message: 'Login successful', token });
+  } catch (error) {
+    console.error('Error logging in user:', error);
+    throw new AppError(error)
   }
-  const isPasswordValid = await comparedPassword(password, user.password);
-  if (!isPasswordValid) {
-    throw new InvalidRequestError('Invalid password');
-  }
-  const token = generateToken(user);
-  res.status(200).json({
-    message: 'User logged in successfully',
-    token,
-  });
 });
 
 module.exports = { registerUser, verifyOTP, loginUser };

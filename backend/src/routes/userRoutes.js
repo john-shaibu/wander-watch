@@ -7,6 +7,7 @@ const {
 } = require('../controllers/userController');
 const { verifyToken } = require('../middlewares/jwt');
 
+
 const userRouter = express.Router();
 
 // Update User without password
@@ -18,7 +19,7 @@ userRouter.put('/update-password', verifyToken, updatePassword);
 // metrics
 // userRouter.get('/metrics', userMetrics);
 
-// metrics
-// userRouter.get('/discover', userMetrics)
+// discover
+// userRouter.get('/discover', discover)
 
 module.exports = userRouter;

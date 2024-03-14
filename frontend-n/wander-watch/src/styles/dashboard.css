@@ -13,6 +13,19 @@
   
 }
 
+.settings-wrapper main{
+  display: flex !important;
+  justify-content: center !important;
+  gap: 1.5em !important;
+  width: 100% !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding: var(--space-xl) !important;
+  max-width: 1600px !important;
+
+  /* background-color: aliceblue; */
+  
+}
 main > .map-container{
   background-color: var(--color-lightest);
   height: 100%;
@@ -144,6 +157,7 @@ main > .map-container{
 }
 .history_container h4{
   font-size: var(--font-xl);
+  font-weight: 700;
   color: var(--color-darkest);
 }
 .history_container .time_spent{
@@ -160,36 +174,4 @@ main > .map-container{
   font-size: var(--font-xs);
   color: var(--color-md);
 }
-@media screen and (min-width : 1600px) {
-  .wrapper{
-    position: relative;
-  }
-  main {
-    position: absolute;
-    left: 50%;
-    right: 50%;
-    transform: translateX(-50%);
-    height: 100%;
-  }
-}
-@media screen and (max-width : 625px) {
-  main {
-    grid-template-columns: 100%;
-    grid-auto-rows: auto;
-  }
-  .user_location_info{
-    display: none;
-  }
-}
 
-@media screen and (max-width: 992px) {
-  .wrapper main{
-    grid-template-columns: 100%;
-  }
-  .location_history{
-    display: none;
-  }
-  .map-container{
-    width: 100%;
-  }
-}

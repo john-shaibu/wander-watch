@@ -75,4 +75,4 @@ const discover = expressAsyncHandler(async (req, res) => {
   res.status(200).json({ message: 'user discover page' });
 });
 
-module.exports = { updateUser, updatePassword };
+module.exports = { updateUser, updatePassword, userMetrics, discover };
