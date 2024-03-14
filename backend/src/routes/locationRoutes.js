@@ -1,5 +1,13 @@
-const express = require('express')
+const express = require('express');
+const locationRouter = express.Router();
+const { verifyToken } = require('../middlewares/jwt');
+const createLocation = require('../controllers/createLocation');
+const getLocation = require('../controllers/getLocationHistory');
 
-const locationRouter = express.Router()
+// Create a new location
+locationRouter.post('/', verifyToken, createLocation);
 
-module.exports = locationRouter
+// Get location history
+locationRouter.get('/', verifyToken, getLocation);
+
+module.exports = locationRouter;

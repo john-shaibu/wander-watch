@@ -1,7 +1,11 @@
 const expressAsyncHandler = require('express-async-handler');
+<<<<<<< Updated upstream
 const {
   updateUserValidation,
 } = require('../validation/userValidation');
+=======
+const { updateUserValidation } = require('../validation/userValidation');
+>>>>>>> Stashed changes
 const { hashPassword, comparedPassword } = require('../middlewares/hashing');
 const { PrismaClient } = require('@prisma/client');
 const { InvalidRequestError, AppError, NotFoundError } = require('../utils/AppErrors');
@@ -67,6 +71,7 @@ const updatePassword = expressAsyncHandler(async (req, res) => {
 });
 
 const userMetrics = expressAsyncHandler(async (req, res) => {
+<<<<<<< Updated upstream
   
   res.status(200).json({message : 'user metrics page'})
 })
@@ -75,5 +80,13 @@ const discover = expressAsyncHandler(async (req, res) => {
   
   res.status(200).json({message : 'user discover page'})
 })
+=======
+  res.status(200).json({ message: 'user metrics page' });
+});
+
+const discover = expressAsyncHandler(async (req, res) => {
+  res.status(200).json({ message: 'user discover page' });
+});
+>>>>>>> Stashed changes
 
 module.exports = { updateUser, updatePassword };
