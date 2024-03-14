@@ -33,7 +33,7 @@ model Location {
   latitude    Decimal
   longitude   Decimal
   timestamp   DateTime
-  userId      Int
+  userId      String
   name        String
   user        User        @relation(fields: [userId], references: [id])
 }

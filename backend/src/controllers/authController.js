@@ -8,15 +8,13 @@ const { generateToken } = require('../middlewares/jwt');
 const { PrismaClient } = require('@prisma/client');
 
 const {
-  InvalidRequestError,
-  AppError,
-  NotFoundError,
+  AppError
 } = require('../utils/AppErrors');
 const {
   generateVerificationCode,
   sendVerificationEmail,
 } = require('../middlewares/emailVerify');
-=
+
 const prisma = new PrismaClient();
 
 // Register a new user
@@ -24,7 +22,7 @@ const registerUser = expressAsyncHandler(async (req, res) => {
 
   const { error } = registrationValidation.validate(req.body);
   if (error) {
-    throw new InvalidRequestError(error.details[0].message);
+    throw new AppError(error.details[0].message, 400);
   }
   const { fullname, email, password, confirmpassword } = req.body;
   const user = await prisma.User.findUnique({
@@ -33,28 +31,33 @@ const registerUser = expressAsyncHandler(async (req, res) => {
     },
   });
   if (user) {
-    throw new InvalidRequestError('User already exists');
+    throw new AppError('User already exists', 400);
   }
-  const verificationCode = generateVerificationCode();
-  const hashedVerificationCode = await hashPassword(
-    verificationCode.toString()
-  );
-  const hashedPassword = await hashPassword(password);
-  await prisma.User.create({
-    data: {
-      fullname,
-      email,
-      password: hashedPassword,
-      confirmpassword,
-      verificationCode: hashedVerificationCode,
-    },
-  });
-  await sendVerificationEmail(email, verificationCode);
-  res.json({
-    status: 'PENDING',
-    message: 'Verification OTP email sent',
-    data: { email },
-  });
+  try {
+
+    const verificationCode = generateVerificationCode();
+    const hashedVerificationCode = await hashPassword(
+      verificationCode.toString()
+    );
+    const hashedPassword = await hashPassword(password);
+    await prisma.User.create({
+      data: {
+        fullname,
+        email,
+        password: hashedPassword,
+        confirmpassword,
+        verificationCode: hashedVerificationCode,
+      },
+    });
+    await sendVerificationEmail(email, verificationCode);
+    res.json({
+      status: 'PENDING',
+      message: 'Verification OTP email sent',
+      data: { email },
+    });
+  } catch (error) {
+    throw new AppError(error)
+  }
 });
 
 // Verify OTP
@@ -66,7 +69,7 @@ const verifyOTP = expressAsyncHandler(async (req, res) => {
     },
   });
   if (!user) {
-    throw new NotFoundError('User not found');
+    throw new AppError('User not found', 404);
   }
   if (user.isVerified) {
     return res.status(400).json({
@@ -79,7 +82,7 @@ const verifyOTP = expressAsyncHandler(async (req, res) => {
   );
 
   if (!matchedVerificationCode) {
-    throw new InvalidRequestError('Invalid verification code');
+    throw new AppError('Invalid verification code', 400);
   }
 
   const verificationCodeExpirationTime = new Date(user.createdAt);
@@ -88,21 +91,27 @@ const verifyOTP = expressAsyncHandler(async (req, res) => {
   );
 
   if (verificationCodeExpirationTime < new Date()) {
-    throw new InvalidRequestError('Verification code has expired');
+    throw new AppError('Verification code has expired', 403);
   }
 
-  await prisma.User.update({
-    where: {
-      email,
-    },
-    data: {
-      isVerified: true,
-    },
-  });
+  try {
 
-  res.status(200).json({
-    message: 'User verified successfully',
-  });
+
+    await prisma.User.update({
+      where: {
+        email,
+      },
+      data: {
+        isVerified: true,
+      },
+    });
+
+    res.status(200).json({
+      message: 'User verified successfully',
+    });
+  } catch (error) {
+    throw new AppError(error)
+  }
 });
 
 // Login User
@@ -112,17 +121,17 @@ const loginUser = expressAsyncHandler(async (req, res) => {
   try {
     // Validate the user input
     const { error } = loginValidation.validate(req.body);
-    if (error) throw new InvalidRequestError(error.details[0].message);
+    if (error) throw new AppError(error.details[0].message, 403);
     // Check if user exists
     const user = await prisma.User.findUnique({
       where: { email },
     });
-    if (!user) throw new NotFoundError('User')
+    if (!user) throw new AppError('User not found', 404)
 
     // Compare password
     const validPassword = await comparedPassword(password, user.password);
     if (!validPassword)
-      throw new InvalidRequestError('Invalid password');
+      throw new AppError('Invalid password', 400);
 
     // Generate token
     const token = generateToken(user.id);
