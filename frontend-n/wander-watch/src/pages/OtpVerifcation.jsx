@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import PageHelmet from '../components/Helmet'
 import { FullLogo } from '../assets'
 import { useForm } from 'react-hook-form'
@@ -6,12 +6,15 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useMutation } from '../hooks/useMutation'
 import { MailIcon, PasscodeIcon } from '../assets'
 import { Link } from 'react-router-dom'
+import ErrorMessage from '../components/ErrorMessage'
 
 import { resendVerifyOTP, verifyOTP } from '../request'
 
 
 
 const OtpVerifcation = () => {
+  let [error_message, setError] = useState('');
+
   const { register, handleSubmit, watch, formState : {errors} } = useForm();
   const [params] = useSearchParams()
   const email = params.get('email')
@@ -21,7 +24,8 @@ const OtpVerifcation = () => {
       alert(`Resent to ${data.data.email}`)
     },
     onError(err){
-      console.log(err);
+      setError(error_message = err.message)   
+       console.log(err.message);
     }
   })
 
@@ -30,11 +34,11 @@ const OtpVerifcation = () => {
   const onSubmit = (data) => {
     verifyOTPMutation.mutate({email, verificationCode: data.code}, {
       onSuccess(successData){
-        navigate('/otp-verification')
         navigate('/')
       },
-      onError(){
-        
+      onError(err){
+        setError(error_message = err.message)   
+       console.log(err.message);
       },
       onSettled({value, error, retries}){
       }
@@ -55,6 +59,7 @@ const OtpVerifcation = () => {
           </a>
           <div className="otpFormContainer">
             <b>Almost There! Verify Your Email Address</b>
+            {!error_message ? '' : <ErrorMessage message= {error_message} />}
             <p>
               We've sent a verification code to <span>johnshaibu277@gmail.com</span>.
               Please enter the code below to complete your account setup.

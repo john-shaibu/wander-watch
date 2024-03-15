@@ -1,10 +1,13 @@
 import { NotifyIcon, SearchIcon } from '../assets'
 
 import '../styles/header.css'
+import { LoginInfoHOC } from './HOCs/loginInfoHOC';
 
 import MenuDropdown from './MenuDropdown';
 
-
+const AuthButtons = () => {
+  return <div>Login</div>
+}
 
 const Header = (props) => {
   const headerName = props.headerName
@@ -27,7 +30,7 @@ const Header = (props) => {
             notification_dropdown
           </div> */}
         </div>
-        <MenuDropdown />
+        <LoginInfoHOC fallback={<AuthButtons/>} errorElement={<AuthButtons/>}>{  user => <MenuDropdown user={user}/> }</LoginInfoHOC>
       </div>
     </header>
   )

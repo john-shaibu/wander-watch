@@ -12,83 +12,95 @@ const throwError = (error) => {
 }
 
 const checkError = (err) => {
-    if(err.code !== "ERR_NETWORK"){
+    if (err.code !== "ERR_NETWORK") {
         throwError(err)
     }
-    else{
+    else {
         throw err
     }
 }
 
 const globalOptions = {
-    retry: 3, retryDelay: 2000, retryCallback(){}, increaseRetries(){}
+    retry: 3, retryDelay: 2000, retryCallback() { }, increaseRetries() { }
 }
 
-export function registerUser (requestParams, configurations = {}){
+export function registerUser(requestParams, configurations = {}) {
     return axios.post(`${baseUrl}/auth/register`, requestParams, {
         ...axiosOptions,
         ...globalOptions,
         ...configurations
     })
-    .then(res => {
-        return res.data
-    })
-    .catch(checkError)
+        .then(res => {
+            return res.data
+        })
+        .catch(checkError)
 }
-export function LoginUser (requestParams, configurations = {}){
+export function LoginUser(requestParams, configurations = {}) {
     return axios.post(`${baseUrl}/auth/login`, requestParams, {
         ...axiosOptions,
         ...globalOptions,
         ...configurations
     })
-    .then(res => {
-        return res.data
-    })
-    .catch(checkError)
+        .then(res => {
+            return res.data
+        })
+        .catch(checkError)
 }
-export function verifyOTP (requestParams, configurations = {}){
+export function verifyOTP(requestParams, configurations = {}) {
     return axios.post(`${baseUrl}/auth/verify-otp`, requestParams, {
         ...axiosOptions,
         ...globalOptions,
         ...configurations
     })
-    .then(res => {
-        return res.data
-    })
-    .catch(checkError)
+        .then(res => {
+            return res.data
+        })
+        .catch(checkError)
 }
 
-export function resendVerifyOTP (requestParams, configurations = {}){
-    return axios.get(`${baseUrl}/auth/resend-verify-otp?email=${requestParams?.email ?? ''}`, requestParams, {
+export function resendVerifyOTP(requestParams, configurations = {}) {
+    return axios.get(`${baseUrl}/auth/resend-verify-otp?email=${requestParams?.email ?? ''}`, {
         ...axiosOptions,
         ...globalOptions,
         ...configurations
     })
-    .then(res => {
-        return res.data
-    })
-    .catch(checkError)
+        .then(res => {
+            return res.data
+        })
+        .catch(checkError)
 }
 
-export function updatePassword (requestParams, configurations = {}){
+export function updatePassword(requestParams, configurations = {}) {
     return axios.post(`${baseUrl}/auth/login`, requestParams, {
         ...axiosOptions,
         ...globalOptions,
         ...configurations
     })
-    .then(res => {
-        return res.data
-    })
-    .catch(checkError)
+        .then(res => {
+            return res.data
+        })
+        .catch(checkError)
 }
-export function recoverPassword (requestParams, configurations = {}){
+export function recoverPassword(requestParams, configurations = {}) {
     return axios.post(`${baseUrl}/auth/login`, requestParams, {
         ...axiosOptions,
         ...globalOptions,
         ...configurations
     })
-    .then(res => {
-        return res.data
+        .then(res => {
+            return res.data
+        })
+        .catch(checkError)
+}
+
+export function pingLogin(requestParams, configurations = {}) {
+    return axios.get(`${baseUrl}/auth/`, {
+        ...axiosOptions,
+        ...globalOptions,
+        ...configurations
     })
-    .catch(checkError)
+        .then(res => {
+            return res.data
+        })
+        .catch(checkError)
 }

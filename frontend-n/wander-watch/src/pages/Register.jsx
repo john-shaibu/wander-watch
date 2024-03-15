@@ -6,9 +6,11 @@ import { useForm } from "react-hook-form"
 import { useMutation } from "../hooks/useMutation";
 import { registerUser } from "../request";
 import ErrorMessage from "../components/ErrorMessage";
+import { useState } from "react";
 
 
 const Register = () => {
+  let [error_message, setError] = useState('');
   const { register, handleSubmit, watch, formState } = useForm();
   const { errors } = formState
   const registerMutation = useMutation((params, config) => registerUser(params, config))
@@ -22,7 +24,9 @@ const Register = () => {
         navigate(`/otp-verification?email=${successData.data.email}`)
       },
       onError(err) {
-        console.log(err);
+        setError(error_message = err.message)
+          
+        console.log(err.message)
       },
       onSettled({ value, error }) {
         
@@ -33,7 +37,7 @@ const Register = () => {
   return (
     <>
       <div className="container">
-        <PageHelmet title='Login' keywords='location tracker, wander watch, location monitor' description='Wander watch login page' />
+        <PageHelmet title='Register' keywords='location tracker, wander watch, location monitor' description='Wander watch Register page' />
 
         <div className="login">
           <a href="#" className="logoLink">
@@ -41,7 +45,7 @@ const Register = () => {
           </a>
           <div className="formContainer">
             <h2>Create a free account</h2>
-            <ErrorMessage message='email is undefined'  errorType=''  />
+            {!error_message ? '' : <ErrorMessage message= {error_message} />}
             <form onSubmit={handleSubmit(onSubmit)} method="post">
               <div>
                 <label htmlFor="fullname">Firstname and Lastname</label>

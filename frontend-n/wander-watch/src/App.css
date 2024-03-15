@@ -169,8 +169,24 @@ aside svg,aside svg *{
 
 }
 .error {
-  background-color: var(--color-lightest);
+  background-color: var(--bg-red);
   padding: var(--space-xs);
+  width: 100%;
+  color: var(--color-lightest);
+  font-weight: 600;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
+.error span{
+  cursor: pointer;
+  background-color: var(--color-lightest);
+  border-radius: 4px;
+}
+.error svg *{
+  stroke: var(--bg-red);
 }
 @media screen and (min-width : 1600px) {
   .wrapper, .settings-wrapper, .profile-wrapper{
@@ -183,6 +199,7 @@ aside svg,aside svg *{
     transform: translateX(-50%);
     height: 100%;
   }
+  
   
 }
 @media screen and (max-width : 625px) {

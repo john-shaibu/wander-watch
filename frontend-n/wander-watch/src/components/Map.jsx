@@ -19,11 +19,11 @@ const Map = () => {
   const [, location] = useLocation()
   const mapRef = useRef(null)
 
-  const { loading: loadingLocation, value: locationTitle, error: locationError } = useAsync(getLocationAdress(location?.longitude, location?.latitude), [ location ])
+  const { loading: loadingLocation, value: locationTitle, error: locationError } = useAsync(getLocationAdress(location?.longitude, location?.latitude), [])
   const  locationFallback = 'omo!'
   
   if (locationTitle != null) {
-    console.log(locationTitle);
+    // console.log(locationTitle);
     const results = locationTitle.results;
     if (results[0]){
       let address_components = results[0].address_components;
@@ -50,11 +50,20 @@ const Map = () => {
         }
       formatted_address = `${!Street_no ? '' : Street_no + ', '}${street_name}, ${city}, ${state}, ${country}`
       console.log(`${!Street_no ? '' : Street_no+','} street_name, city, state, country`)
-      console.log(formatted_address)
+      // console.log(formatted_address)
     }
   } else {
     console.log('could not get your location info')    
   }
+
+  const data_to_save = location && {
+    _longitude : location.longitude,
+    _latitude : location.latitude,
+    _name : formatted_address
+
+  }
+  console.log(data_to_save)
+
   
   return (
     <div className='map-container'>

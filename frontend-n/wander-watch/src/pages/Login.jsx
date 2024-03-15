@@ -7,22 +7,32 @@ import { useForm } from 'react-hook-form'
 import { LoginUser } from "../request";
 
 import PageHelmet from "../components/Helmet";
+import ErrorMessage from "../components/ErrorMessage";
+import { useState } from "react";
+
+
+import { LoginInfoHOC } from "../components/HOCs/loginInfoHOC";
 
 const Login = () => {
+
+  let [error_message, setError] = useState('');
   const { register, handleSubmit, watch, formState } = useForm();
   const { errors } = formState
   const loginMutation = useMutation((params, config) => LoginUser(params, config))
-  console.log(watch());
+  // console.log(watch());
   const navigate = useNavigate()
   const onSubmit = (data) => {
     loginMutation.mutate({ email: data.email, password: data.password }, {
-      onSuccess(successData){
+      onSuccess(successData) {
         console.log(successData);
+        navigate('/')
       },
-      onError(){
+      onError(ErrorMessage) {
+        setError(error_message = ErrorMessage.message)
 
+        console.log(ErrorMessage.message);
       },
-      onSettled({value, error, retries}){
+      onSettled({ value, error, retries }) {
         console.log(retries);
       }
     })
@@ -39,15 +49,16 @@ const Login = () => {
           </a>
           <div className="formContainer">
             <h2>Login to your account</h2>
+            {!error_message ? '' : <ErrorMessage message={error_message} />}
             <form action="" onSubmit={handleSubmit(onSubmit)} method="post">
               <div>
                 <label htmlFor="user_email">Email Address</label>
                 <div>
                   <MailIcon />
-                  <input type="email" 
-                    {...register('email', {required : true})} 
-                    id="user_email" 
-                    placeholder="Ex: johndoe@domain.com" 
+                  <input type="email"
+                    {...register('email', { required: true })}
+                    id="user_email"
+                    placeholder="Ex: johndoe@domain.com"
                   />
                 </div>
               </div>
@@ -55,10 +66,10 @@ const Login = () => {
                 <label htmlFor="user_password">Password</label>
                 <div>
                   <PasscodeIcon className='passcodeIcons' />
-                  <input type= 'password'
-                    {...register('password', {required: true})} 
-                    id="user_password" 
-                    placeholder="Password" 
+                  <input type='password'
+                    {...register('password', { required: true })}
+                    id="user_password"
+                    placeholder="Password"
                   />
                 </div>
               </div>
@@ -80,4 +91,17 @@ const Login = () => {
     </>
   );
 }
-export default Login;
+
+const LoginRedirect = () => {
+  return 'Wetin you dey find?'
+}
+
+
+const LoginPage = () => {
+  const navigate = useNavigate()
+  return <LoginInfoHOC fallback={<Login />} errorElement={<Login />}>{(data) => {
+     navigate('/')
+  }}</LoginInfoHOC>
+}
+
+export default LoginPage;

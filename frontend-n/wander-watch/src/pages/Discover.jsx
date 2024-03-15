@@ -10,6 +10,9 @@ import Map from '../components/Map'
 import Filter from '../components/Filter'
 import DiscoveryMap from '../components/DiscoveryMap'
 
+import { LoginInfoHOC } from '../components/HOCs/loginInfoHOC'
+import { useNavigate } from 'react-router-dom'
+
 
 const Discover = () => {
 
@@ -33,4 +36,18 @@ const Discover = () => {
   )
 }
 
-export default Discover
+const DiscoverRedirect = () => {
+  const navigate = useNavigate()
+
+  navigate('/')
+}
+
+
+const DiscoverPage = () => {
+  return <LoginInfoHOC fallback={<DiscoverRedirect />} errorElement={<DiscoverRedirect />}>{(data) => {
+     return <Discover />
+  }}</LoginInfoHOC>
+}
+
+
+export default DiscoverPage

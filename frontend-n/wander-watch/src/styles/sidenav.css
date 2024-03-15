@@ -129,10 +129,10 @@ aside > ul > li > a:hover span{
       transition: all .3s ease-in;
     }
     .sidenav.open {
-      translate: 0 0 !important; 
+      transform: translate(0, 0) !important; 
     }
     .sidenav-toggle{
-      left: 3em !important;
+      left: 2em !important;
       visibility: visible;
     }
   

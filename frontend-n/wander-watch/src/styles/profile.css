@@ -1,21 +1,93 @@
 .profile-wrapper main{
     grid-template-columns: 100%;
     padding: 2em !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
   }
-  .profile-wrapper main > .settings-container{
+  .profile-wrapper main > .profile-container{
     background-color: var(--color-lightest);
     border: 1px solid var(--color-border);
     border-radius: 8px;
     max-width: 768px;
+    width: 100%;
     padding: 2em;
     display: flex;
     flex-direction: column;
-    gap: 2em;
+    justify-content: center;
+    gap: 3em;
+  }
+
+
+  .user_profile_avatar{
+    overflow: hidden;
   }
   
+.user_general_information{
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+.user_general_information .user_general_information_header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user_general_information_header button{
+  background-color: var(--color-lightest);
+  display: flex;
+  align-items: center;
+  gap: 0.658em;
+  font-size: var(--font-md);
+  font-weight: 600;
+  color: var(--bg-primary);
+  box-shadow: var(--box-shadow);
+  padding: 8px;
+
+}
+.user_general_information_fields{
+  display: grid;
+  grid-template-columns: repeat(2, calc(50% - 1em));
+  gap: 2.5em 2em;
+}
+.user_general_information_fields div{
+  display: flex;
+  flex-direction: column;
+  gap: 0.625em;
+}
+.user_general_information_fields div label{
+  font-size: 0.875em;
+}
+.user_general_information_fields div input{
+  height: 48px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding-inline: 16px;
+  outline: 2px solid transparent;
+  transition: all .3s;
+  font-size: var(--font-base);
+  width: 100%;
+}
+
+.user_general_information_fields div > button{
+  width: 50%;
+}
+
+  @media screen and (max-width: 625px) {
+    .user_dp{
+      flex-direction: column;
+
+    }
+    .user_general_information_fields{
+      grid-template-columns: 100%;
+      gap: 1.5em;
+    }
+  }
   @media screen and (max-width: 992px) {
     .profile-container{
       width: 100%;
     }
-    }
+  }
     
