@@ -7,18 +7,22 @@ const generateToken = (id) => {
   });
 };
 
-// Verify Token
-const verifyToken = (req, res, next) => {
-  const token = req.header('auth-token');
-  if (!token) return res.status(401).json({ message: 'Access Denied' });
+const verifyCodedToken = (token) => {
+  return verify(token, process.env.JWT_SECRET)
+}
 
-  try {
-    const verified = verify(token, process.env.JWT_SECRET);
-    req.user = verified;
-    next();
-  } catch (error) {
-    res.status(400).json({ message: 'Invalid Token' });
-  }
-};
+// Verify Token - REMOVED FOR LOGGEDINMIDDLEWARE LOGIC
+// const verifyToken = (req, res, next) => {
+//   const token = req.header('auth-token');
+//   if (!token) return res.status(401).json({ message: 'Access Denied' });
 
-module.exports = { generateToken, verifyToken };
+//   try {
+//     const verified = verify(token, process.env.JWT_SECRET);
+//     req.user = verified;
+//     next();
+//   } catch (error) {
+//     res.status(400).json({ message: 'Invalid Token' });
+//   }
+// };
+
+module.exports = { generateToken, verifyCodedToken };

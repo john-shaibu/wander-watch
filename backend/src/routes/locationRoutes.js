@@ -1,13 +1,13 @@
 const express = require('express');
 const locationRouter = express.Router();
-const { verifyToken } = require('../middlewares/jwt');
 const createLocation = require('../controllers/createLocation');
 const getLocation = require('../controllers/getLocationHistory');
+const { loggedInMidddleware } = require('../middlewares/authMiddlewares');
 
 // Create a new location
-locationRouter.post('/', verifyToken, createLocation);
+locationRouter.post('/', loggedInMidddleware, createLocation);
 
 // Get location history
-locationRouter.get('/', verifyToken, getLocation);
+locationRouter.get('/', loggedInMidddleware, getLocation);
 
 module.exports = locationRouter;

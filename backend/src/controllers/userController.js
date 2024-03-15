@@ -3,9 +3,7 @@ const { updateUserValidation } = require('../validation/userValidation');
 const { hashPassword, comparedPassword } = require('../middlewares/hashing');
 const { PrismaClient } = require('@prisma/client');
 const {
-  InvalidRequestError,
-  AppError,
-  NotFoundError,
+  AppError
 } = require('../utils/AppErrors');
 const prisma = new PrismaClient();
 
@@ -18,7 +16,7 @@ const updateUser = expressAsyncHandler(async (req, res) => {
     // Validate the user input
     const { error } = updateUserValidation.validate({ fullname, email });
     if (error) {
-      throw new InvalidRequestError(error.details[0].message);
+      throw new AppError(error.details[0].message, 400);
     }
 
     // Update the user details
@@ -46,11 +44,11 @@ const updatePassword = expressAsyncHandler(async (req, res) => {
       where: { id },
     });
     const validPassword = await comparedPassword(oldpassword, user.password);
-    if (!validPassword) throw new InvalidRequestError('Invalid old password');
+    if (!validPassword) throw new AppError('Invalid old password', 400);
 
     // Check if new password and confirm new password match
     if (newpassword !== confirmnewpassword)
-      throw new InvalidRequestError('Password does not match');
+      throw new AppError('Password does not match', 400);
 
     // Hash the new password
     const hashedPassword = await hashPassword(newpassword);

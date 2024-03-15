@@ -6,19 +6,22 @@ const authRouter = require('../routes/authRoutes');
 const locationRouter = require('../routes/locationRoutes');
 const userRouter = require('../routes/userRoutes');
 const compression = express('compression');
+const cookieParser = require('cookie-parser')
 
 const app = express();
 
+
 // Sites that can access our API
-const allowedOrigins = ['http://localhost:5173']; // To be changed
+const allowedOrigins = ['http://localhost:5173', 'https://wander-watch.vercel.app']; // To be changed
 
 // Core Middlewares
 app.use(
   cors({
+    preflightContinue: true,
     credentials: true,
     origin: (originUrl, callback) => {
       // If the request has no origin, e.g in api testers like postman, allow the request.
-      if (!originUrl) return callback(null, true); // To be changed later
+      if (!originUrl) return callback(null, true);
 
       // If request origin is not allowed, throw a cors error
       if (!allowedOrigins.includes(originUrl)) {
@@ -41,6 +44,8 @@ app.use(express.json());
 // It provides a structured way to see information like the HTTP method,
 // path, status code, and other details.
 app.use(morgan('short'));
+
+app.use(cookieParser())
 
 // Routes
 app.use('/auth', authRouter);

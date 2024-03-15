@@ -4,7 +4,9 @@ const {
   loginUser,
   verifyOTP,
   resendVerificationCode,
+  pingLogin
 } = require('../controllers/authController');
+const { loggedInMidddleware } = require('../middlewares/authMiddlewares');
 
 const authRouter = express.Router();
 
@@ -20,5 +22,7 @@ authRouter.get('/resend-verify-otp', resendVerificationCode);
 
 // Login User
 authRouter.post('/login', loginUser);
+
+authRouter.get('/', loggedInMidddleware, pingLogin)
 
 module.exports = authRouter;

@@ -5,17 +5,24 @@ const {
 } = require('../validation/userValidation');
 const { hashPassword, comparedPassword } = require('../middlewares/hashing');
 const { generateToken } = require('../middlewares/jwt');
-const { PrismaClient } = require('@prisma/client');
 
-const AppError = require('../utils/AppErrors');
+const { AppError } = require('../utils/AppErrors');
 const {
   generateVerificationCode,
   sendVerificationEmail,
 } = require('../middlewares/emailVerify');
+const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient({
-  errorFormat: 'minimal'
-});
+    errorFormat: 'minimal'
+})
+
+const pingLogin = expressAsyncHandler(async (req, res) => { 
+    if (!req.user) throw new AppError('Not Logged In', 403)
+
+     res.json({ email: req.user.email })
+})
+
 
 // const main = async () => {
 // await prisma.user.deleteMany({})
@@ -39,6 +46,7 @@ const registerUser = expressAsyncHandler(async (req, res) => {
   if (user) {
     throw new AppError('User already exists', 400);
   }
+  console.log(user);
   try {
     const verificationCode = generateVerificationCode();
     const hashedVerificationCode = await hashPassword(
@@ -54,14 +62,14 @@ const registerUser = expressAsyncHandler(async (req, res) => {
         password: hashedPassword,
         confirmpassword,
         verificationCode: hashedVerificationCode,
-        verificationCodeExpirationTime: verificationCodeExpirationTime
+        verificationCodeExpirationTime: String(verificationCodeExpirationTime)
       },
     });
-    await sendVerificationEmail(email, verificationCode);
+    // await sendVerificationEmail(email, verificationCode); // Uncomment this when going live
     res.json({
       status: 'PENDING',
       message: 'Verification OTP email sent',
-      data: { email },
+      data: { email, verificationCode }, // Remove the verificationCode
     });
   } catch (error) {
     throw new AppError(error)
@@ -180,13 +188,20 @@ const loginUser = expressAsyncHandler(async (req, res) => {
 
     // Generate token
     const token = generateToken(user.id);
-    res.header('auth-token', token);
+    
+    res.cookie('LIT', token, {
+      maxAge: 1000 * 60 * 60 * 24 * 5,
+      httpOnly: true,
+      // secure: process.env.NODE_ENV === 'production' ? true : false,
+      secure: false
+    })
 
-    res.status(200).json({ message: 'Login successful', token });
+    console.log('success');
+
+    res.status(200).json({ message: 'Login successful', user: { email, fullname: user.fullname, location : user.locations } });
   } catch (error) {
-    console.error('Error logging in user:', error);
     throw new AppError(error)
   }
 });
 
-module.exports = { registerUser, verifyOTP, loginUser, resendVerificationCode };
+module.exports = { registerUser, verifyOTP, loginUser, resendVerificationCode, pingLogin };
