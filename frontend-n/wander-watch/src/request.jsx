@@ -47,7 +47,7 @@ export function LoginUser (requestParams, configurations = {}){
     .catch(checkError)
 }
 export function verifyOTP (requestParams, configurations = {}){
-    return axios.post(`${baseUrl}/auth/login`, requestParams, {
+    return axios.post(`${baseUrl}/auth/verify-otp`, requestParams, {
         ...axiosOptions,
         ...globalOptions,
         ...configurations
@@ -57,6 +57,19 @@ export function verifyOTP (requestParams, configurations = {}){
     })
     .catch(checkError)
 }
+
+export function resendVerifyOTP (requestParams, configurations = {}){
+    return axios.get(`${baseUrl}/auth/resend-verify-otp?email=${requestParams?.email ?? ''}`, requestParams, {
+        ...axiosOptions,
+        ...globalOptions,
+        ...configurations
+    })
+    .then(res => {
+        return res.data
+    })
+    .catch(checkError)
+}
+
 export function updatePassword (requestParams, configurations = {}){
     return axios.post(`${baseUrl}/auth/login`, requestParams, {
         ...axiosOptions,

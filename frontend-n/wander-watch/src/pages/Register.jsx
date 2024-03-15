@@ -5,6 +5,7 @@ import PageHelmet from "../components/Helmet";
 import { useForm } from "react-hook-form"
 import { useMutation } from "../hooks/useMutation";
 import { registerUser } from "../request";
+import ErrorMessage from "../components/ErrorMessage";
 
 
 const Register = () => {
@@ -18,7 +19,7 @@ const Register = () => {
     }, {
       onSuccess(successData) {
         console.log(successData);
-        navigate('/otp-verification')
+        navigate(`/otp-verification?email=${successData.data.email}`)
       },
       onError(err) {
         console.log(err);
@@ -40,6 +41,7 @@ const Register = () => {
           </a>
           <div className="formContainer">
             <h2>Create a free account</h2>
+            <ErrorMessage message='email is undefined'  errorType=''  />
             <form onSubmit={handleSubmit(onSubmit)} method="post">
               <div>
                 <label htmlFor="fullname">Firstname and Lastname</label>

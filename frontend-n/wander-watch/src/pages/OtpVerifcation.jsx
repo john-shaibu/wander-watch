@@ -1,44 +1,49 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PageHelmet from '../components/Helmet'
 import { FullLogo } from '../assets'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useMutation } from '../hooks/useMutation'
 import { MailIcon, PasscodeIcon } from '../assets'
 import { Link } from 'react-router-dom'
 
-import { verifyOTP } from '../request'
+import { resendVerifyOTP, verifyOTP } from '../request'
 
 
 
 const OtpVerifcation = () => {
-  const { verify, handleSubmit, formState : {errors} } = useForm();
-  // const { errors } = formState
-  const _verify = () => { 
-    return(
-      verify
-    )
-   };
+  const { register, handleSubmit, watch, formState : {errors} } = useForm();
+  const [params] = useSearchParams()
+  const email = params.get('email')
+
+  const resendOTPMutation = useMutation((params, config) => resendVerifyOTP({ email }, config), {
+    onSuccess: (data) => {
+      alert(`Resent to ${data.data.email}`)
+    },
+    onError(err){
+      console.log(err);
+    }
+  })
 
   const verifyOTPMutation = useMutation((params, config) => verifyOTP(params, config))
   const navigate = useNavigate()
   const onSubmit = (data) => {
-    // verifyOTPMutation.mutate({}, {
-    //   onSuccess(successData){
-    //     navigate('/otp-verification')
-    //   },
-    //   onError(){
-      
-      //   },
-      //   onSettled({value, error, retries}){
-        //     console.log(retries);
-        //   }
-        // })
-        console.log(data)
+    verifyOTPMutation.mutate({email, verificationCode: data.code}, {
+      onSuccess(successData){
+        navigate('/otp-verification')
         navigate('/')
-
-
+      },
+      onError(){
+        
+      },
+      onSettled({value, error, retries}){
+      }
+    })
+    
+    
+    console.log(data)
   }
+
   return (
     <>
       <div className="container">
@@ -57,17 +62,17 @@ const OtpVerifcation = () => {
             <form action="" onSubmit={handleSubmit(onSubmit)} method="post">
               <div className='otp_input'>
                   <input type= 'text'
-                    {..._verify('code', {required : true})} 
+                    {...register('code', {required : true})} 
                     id="otp" 
-                    placeholder="-----" 
-                    minLength={5}
-                    maxLength={5}
+                    placeholder="------" 
+                    minLength={6}
+                    maxLength={6}
                     autoFocus
                     />
                     {errors.exampleRequired && <span>This field is required</span>}
-                    <p>Didn't receive a code? <span>Resend</span></p>
+                    <p>Didn't receive a code? <span onClick={resendOTPMutation.mutate}>Resend</span></p>
               </div>
-              <button type="submit" className="primary-btn">Verify account</button>
+              <button type="submit" className="primary-btn" disabled={verifyOTPMutation.isMutating}>Verify account</button>
             </form>
           </div>
         </div>

@@ -1,22 +1,29 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
 import { useCounter } from './useCounter'
 
-export function useMutation(mutationFn) {
+const defaultEvents = { onSuccess: function(){}, onError: function(){}, onSettled: function(){} }
+
+export function useMutation(mutationFn, events = {}) {
     const mutationRef = useRef()
     const [isMutating, setMutating] = useState(false)
     const [value, setValue] = useState(null)
     const [error, setError] = useState(null)
     const {value:retries, increment} = useCounter(0)
+    let globalEvents = {
+        onSuccess: events.onSuccess ?? defaultEvents.onSuccess,
+        onError: events.onError ?? defaultEvents.onError,
+        onSettled: events.onSettled ?? defaultEvents.onSettled
+    }
 
     useEffect(() => {
         mutationRef.current = mutationFn
     }, []);
 
-    const mutate = useCallback((params, { onSuccess, onError, onSettled }, configs = {}) => {
+    const mutate = useCallback((params, mutateEvents, configs = {}) => {
         setMutating(true)
-        const successFn = onSuccess ?? function(){}
-        const errorFn = onError ?? function(){}
-        const settledFn = onSettled ?? function(){};
+        const successFn = mutateEvents?.onSuccess ?? globalEvents.onSuccess
+        const errorFn = mutateEvents?.onError ?? globalEvents.onError
+        const settledFn = mutateEvents?.onSettled ?? globalEvents.onSettled;
 
         mutationRef.current(params, {
             ...configs,

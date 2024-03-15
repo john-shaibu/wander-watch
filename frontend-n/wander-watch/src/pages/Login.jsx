@@ -15,9 +15,9 @@ const Login = () => {
   console.log(watch());
   const navigate = useNavigate()
   const onSubmit = (data) => {
-    loginMutation.mutate({}, {
+    loginMutation.mutate({ email: data.email, password: data.password }, {
       onSuccess(successData){
-        navigate('/otp-verification')
+        console.log(successData);
       },
       onError(){
 

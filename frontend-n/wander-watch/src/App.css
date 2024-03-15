@@ -168,6 +168,10 @@ aside svg,aside svg *{
   height: calc(100vh - 96px);
 
 }
+.error {
+  background-color: var(--color-lightest);
+  padding: var(--space-xs);
+}
 @media screen and (min-width : 1600px) {
   .wrapper, .settings-wrapper, .profile-wrapper{
     position: relative;
