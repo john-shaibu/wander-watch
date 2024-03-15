@@ -49,6 +49,7 @@ const Map = () => {
           }
         }
       formatted_address = `${!Street_no ? '' : Street_no + ', '}${street_name}, ${city}, ${state}, ${country}`
+      alert(formatted_address)
       console.log(`${!Street_no ? '' : Street_no+','} street_name, city, state, country`)
       // console.log(formatted_address)
     }
