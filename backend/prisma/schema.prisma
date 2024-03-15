@@ -15,26 +15,26 @@ datasource db {
 
 // User model to store user information
 model User {
-  id          String       @id @default(uuid())
-  fullname    String
-  email       String    @unique
-  password    String
-  confirmpassword String
-  verificationCode String
-  isVerified Boolean @default(false)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime?  @updatedAt
-  locations   Location[]
+  id                             String     @id @default(uuid())
+  fullname                       String
+  email                          String     @unique
+  password                       String
+  confirmpassword                String     @default("")
+  verificationCode               String     @default("")
+  verificationCodeExpirationTime String     @default("")
+  isVerified                     Boolean    @default(false)
+  createdAt                      DateTime   @default(now())
+  updatedAt                      DateTime?  @updatedAt
+  locations                      Location[]
 }
 
 // Location model to store user location data
 model Location {
-  id          String       @id @default(uuid())
-  latitude    Decimal
-  longitude   Decimal
-  timestamp   DateTime
-  userId      String
-  name        String
-  user        User        @relation(fields: [userId], references: [id])
+  id        String   @id @default(uuid())
+  latitude  Decimal
+  longitude Decimal
+  timestamp DateTime
+  userId    String
+  name      String
+  user      User     @relation(fields: [userId], references: [id])
 }
-

@@ -7,15 +7,21 @@ const { hashPassword, comparedPassword } = require('../middlewares/hashing');
 const { generateToken } = require('../middlewares/jwt');
 const { PrismaClient } = require('@prisma/client');
 
-const {
-  AppError
-} = require('../utils/AppErrors');
+const AppError = require('../utils/AppErrors');
 const {
   generateVerificationCode,
   sendVerificationEmail,
 } = require('../middlewares/emailVerify');
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  errorFormat: 'minimal'
+});
+
+// const main = async () => {
+// await prisma.user.deleteMany({})
+// }
+
+// main()
 
 // Register a new user
 const registerUser = expressAsyncHandler(async (req, res) => {
@@ -34,11 +40,12 @@ const registerUser = expressAsyncHandler(async (req, res) => {
     throw new AppError('User already exists', 400);
   }
   try {
-
     const verificationCode = generateVerificationCode();
     const hashedVerificationCode = await hashPassword(
       verificationCode.toString()
     );
+    const verificationCodeCreationTime = new Date()
+    const verificationCodeExpirationTime = verificationCodeCreationTime.setMinutes(verificationCodeCreationTime.getMinutes() + 5)
     const hashedPassword = await hashPassword(password);
     await prisma.User.create({
       data: {
@@ -47,6 +54,7 @@ const registerUser = expressAsyncHandler(async (req, res) => {
         password: hashedPassword,
         confirmpassword,
         verificationCode: hashedVerificationCode,
+        verificationCodeExpirationTime: verificationCodeExpirationTime
       },
     });
     await sendVerificationEmail(email, verificationCode);
@@ -59,6 +67,50 @@ const registerUser = expressAsyncHandler(async (req, res) => {
     throw new AppError(error)
   }
 });
+
+const resendVerificationCode = expressAsyncHandler(async (req, res) => {
+  const { email } = req.query;
+
+  const user = await prisma.User.findUnique({
+    where: {
+      email,
+    },
+  });
+  if (!user) {
+    throw new AppError('User not found', 404);
+  }
+
+  if (user.isVerified) {
+    throw new AppError('User already verified', 403)
+  }
+
+  try {
+    const verificationCode = generateVerificationCode();
+    const hashedVerificationCode = await hashPassword(
+      verificationCode.toString()
+    );
+    const verificationCodeCreationTime = new Date()
+    const verificationCodeExpirationTime = verificationCodeCreationTime.setMinutes(verificationCodeCreationTime.getMinutes() + 5)
+
+    await prisma.user.update({
+      where: {
+        email: user.email
+      },
+      data: {
+        verificationCode: hashedVerificationCode,
+        verificationCodeExpirationTime: String(verificationCodeExpirationTime)
+      }
+    })
+    await sendVerificationEmail(email, verificationCode);
+    res.json({
+      status: 'PENDING',
+      message: 'Verification OTP email sent',
+      data: { email },
+    });
+  } catch (error) {
+    throw new AppError(error)
+  }
+})
 
 // Verify OTP
 const verifyOTP = expressAsyncHandler(async (req, res) => {
@@ -85,18 +137,11 @@ const verifyOTP = expressAsyncHandler(async (req, res) => {
     throw new AppError('Invalid verification code', 400);
   }
 
-  const verificationCodeExpirationTime = new Date(user.createdAt);
-  verificationCodeExpirationTime.setMinutes(
-    verificationCodeExpirationTime.getMinutes() + 5
-  );
-
-  if (verificationCodeExpirationTime < new Date()) {
+  if (user.verificationCodeExpirationTime < new Date()) {
     throw new AppError('Verification code has expired', 403);
   }
 
   try {
-
-
     await prisma.User.update({
       where: {
         email,
@@ -118,16 +163,16 @@ const verifyOTP = expressAsyncHandler(async (req, res) => {
 const loginUser = expressAsyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
-  try {
-    // Validate the user input
-    const { error } = loginValidation.validate(req.body);
-    if (error) throw new AppError(error.details[0].message, 403);
-    // Check if user exists
-    const user = await prisma.User.findUnique({
-      where: { email },
-    });
-    if (!user) throw new AppError('User not found', 404)
+  // Validate the user input
+  const { error } = loginValidation.validate(req.body);
+  if (error) throw new AppError(error.details[0].message, 403);
+  // Check if user exists
+  const user = await prisma.User.findUnique({
+    where: { email },
+  });
+  if (!user) throw new AppError('User not found', 404)
 
+  try {
     // Compare password
     const validPassword = await comparedPassword(password, user.password);
     if (!validPassword)
@@ -144,4 +189,4 @@ const loginUser = expressAsyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { registerUser, verifyOTP, loginUser };
+module.exports = { registerUser, verifyOTP, loginUser, resendVerificationCode };

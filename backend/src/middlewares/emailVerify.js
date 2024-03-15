@@ -20,12 +20,12 @@ const sendVerificationEmail = async (email, verificationCode) => {
       from: process.env.EMAIL_SECRET,
       to: email,
       subject: 'Email Verification',
-      html: `<p>Dear user,</p>
+      html: `<html><head><link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" /></head><body><p>Dear user,</p>
          <p>Thank you for registering with wander-watch. Please use the following verification code to verify your email address:</p>
          <p><strong>${verificationCode}</strong></p>
          <p>Your verification code expires in 5 minutes</p>
          <p>Alternatively, if the code doesn't work, you can click<a href="link_to_verification_page"> here</a> to verify your email address.</p>
-         <p>If you didn't register with wander-watch, please ignore this email.</p>`,
+         <p>If you didn't register with wander-watch, please ignore this email.</p></body></html>`,
     };
 
     await transporter.sendMail(mailOptions);

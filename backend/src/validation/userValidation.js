@@ -23,17 +23,19 @@ const registrationValidation = Joi.object({
 });
 
 const loginValidation = Joi.object({
-  email: Joi.string().required().email(),
-  password: Joi.string()
-    .min(8)
-    .max(40)
-    .pattern(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+{}|:"<>?~`\-=[\]\\;',./]).{8,40}$/
-    )
-    .message(
-      '"{#label}" must contain at least 1 lowercase letter, 1 uppercase letter, 1 number, 1 symbol, and be 8-40 characters.'
-    )
-    .required(),
+  email: Joi.string().required(),
+  password: Joi.string().required()
+  // email: Joi.string().required().email(),
+  // password: Joi.string()
+  //   .min(8)
+  //   .max(40)
+  //   .pattern(
+  //     /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+{}|:"<>?~`\-=[\]\\;',./]).{8,40}$/
+  //   )
+  //   .message(
+  //     '"{#label}" must contain at least 1 lowercase letter, 1 uppercase letter, 1 number, 1 symbol, and be 8-40 characters.'
+  //   )
+  //   .required(),
 });
 
 const updateUserValidation = Joi.object({
