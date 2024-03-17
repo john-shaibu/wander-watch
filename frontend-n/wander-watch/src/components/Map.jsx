@@ -8,15 +8,20 @@ import UserLocationInfo from './mapComponents/UserLocationInfo';
 import getLocationAdress from './mapComponents/mapDataFetcher';
 import CustomMarker from './mapComponents/Marker';
 import { useState } from 'react';
+import { saveLocation } from '../request';
+import { useNavigate } from 'react-router-dom'
+import { useMutation } from '../hooks/useMutation';
 
-let Street_no = '';
-let street_name = '';
-let city = '';
-let state = '';
-let country = ''
-let formatted_address = '';
+
 
 const locationHandler = (locationTitle) => {
+  let Street_no = '';
+  let street_name = '';
+  let city = '';
+  let state = '';
+  let country = ''
+  let formatted_address = '';
+
   if (locationTitle != null) {
     const results = locationTitle.results;
 
@@ -55,36 +60,47 @@ const locationHandler = (locationTitle) => {
 const Map = () => {
   const [error, location] = useLocation()
   const mapRef = useRef(null)
+  const saveLocationMutation = useMutation((params, config) => saveLocation(params, config), {
+    onSuccess(successData) {
+      console.log(successData);
+
+    },
+    onError(ErrorMessage) {
+      // setError(error_message = ErrorMessage.message)
+
+      console.log(ErrorMessage.message);
+    },
+    onSettled({ value, error, retries }) {
+      console.log(retries);
+    }
+  })
+
+  let navigate = useNavigate()
 
   const [address, setAddress] = useState();
 
   const { loading: loadingLocation, value: locationTitle, error: locationError } = useAsync(getLocationAdress(location?.longitude, location?.latitude), [location])
   const locationFallback = 'omo!'
 
-  // useEffect = ((locationTitle) => {
-  //   // console.log(formatted_address)
-
-  // }, [formatted_address])
-
   const formatted_address = useMemo(() => locationHandler(locationTitle), [locationTitle])
 
-  // Chai!!
-  let _location_longitude = ''
-  let _location_latitude = ''
-  let _name_of_location = formatted_address
 
-  if (_location_latitude && _location_longitude && _name_of_location) {
-
-    const data_to_save = location && {
-      _longitude: _location_longitude,
-      _latitude: _location_latitude,
-      _name: _name_of_location
-
+  useEffect(() => {
+    let intervalId;
+    if (location) {
+      intervalId = setInterval(() => {
+        saveLocationMutation.mutate({ longitude: location?.longitude, latitude: location?.latitude, name: formatted_address })
+      }, 1000 * 60 * 10)
+      
     }
-    console.log(data_to_save)
-  } else {
-    console.log('I no see shishi ooo')
-  }
+
+    return () => {
+      clearInterval(intervalId)
+    }
+  }, [location])
+
+
+
 
 
   return (

@@ -105,7 +105,7 @@ export function pingLogin(requestParams, configurations = {}) {
         .catch(checkError)
 }
 export function saveLocation(requestParams, configurations = {}) {
-    return axios.get(`${baseUrl}/auth/`, {
+    return axios.post(`${baseUrl}/locations/`, requestParams, {
         ...axiosOptions,
         ...globalOptions,
         ...configurations

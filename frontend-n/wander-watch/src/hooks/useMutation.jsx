@@ -4,7 +4,7 @@ import { useCounter } from './useCounter'
 const defaultEvents = { onSuccess: function(){}, onError: function(){}, onSettled: function(){} }
 
 export function useMutation(mutationFn, events = {}) {
-    const mutationRef = useRef()
+    const mutationRef = useRef(null)
     const [isMutating, setMutating] = useState(false)
     const [value, setValue] = useState(null)
     const [error, setError] = useState(null)
