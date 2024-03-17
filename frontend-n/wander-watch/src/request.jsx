@@ -1,7 +1,7 @@
 import axios from "./axios-instance"
 import AppError from "./utils/AppError"
 
-const baseUrl = import.meta.env.VITE_BACKEND_URL || `http://localhost:3000` || `https://healthy-pink-parka.cyclic.app/`
+const baseUrl = import.meta.env.VITE_BACKEND_URL || `http://localhost:3000`
 
 const axiosOptions = {
     withCredentials: true
