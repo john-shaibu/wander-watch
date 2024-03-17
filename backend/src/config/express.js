@@ -12,7 +12,7 @@ const app = express();
 
 
 // Sites that can access our API
-const allowedOrigins = ['http://localhost:5173', 'https://wander-watch.vercel.app']; // To be changed
+const allowedOrigins = ['http://localhost:5173', 'https://wander-watch.vercel.app',]; // To be changed
 
 // Core Middlewares
 app.use(
