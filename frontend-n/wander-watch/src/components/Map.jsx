@@ -1,12 +1,13 @@
 import { MapContainer, TileLayer, useMap} from 'react-leaflet';
 import useLocation from '../hooks/useLocation'
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom'
 import { useAsync } from '../hooks/useAsync';
 import MapLoader from './mapComponents/MapLoader';
 import UserLocationInfo from './mapComponents/UserLocationInfo';
 import getLocationAdress from './mapComponents/mapDataFetcher';
 import CustomMarker from './mapComponents/Marker';
+import { useState } from 'react';
 
 let Street_no = '';
 let street_name = '';
@@ -16,24 +17,32 @@ let country = ''
 let formatted_address = '';
 
 const Map = () => {
-  const [, location] = useLocation()
+  const [error, location] = useLocation()
   const mapRef = useRef(null)
+
+  const [address, setAddress] = useState({});
 
   const { loading: loadingLocation, value: locationTitle, error: locationError } = useAsync(getLocationAdress(location?.longitude, location?.latitude), [])
   const  locationFallback = 'omo!'
   
+  // useEffect = ((locationTitle) => {
+  //   // console.log(formatted_address)
+
+  // }, [formatted_address])
+
   if (locationTitle != null) {
-    // console.log(locationTitle);
     const results = locationTitle.results;
+    
     if (results[0]){
       let address_components = results[0].address_components;
+
       
       console.log(address_components)
       for (var i = 0; i < address_components.length; i++) {
           if (address_components[i].types[0] === "street_number") {
               Street_no = address_components[i].long_name;    
           }
-          if (address_components[i].types[0] === "neighborhood" || address_components[i].types[0] === "route" || address_components[i].types[0] === "premise") {
+          if (address_components[i].types[0] === "neighborhood" || address_components[i].types[0] === "route" || address_components[i].types[0] === "premise" || address_components[i].types[0] === "plus_code" ) {
               street_name = address_components[i].long_name;    
           }
           if (address_components[i].types[0] === "administrative_area_level_1" && address_components[i].types[1] === "political") {
@@ -48,22 +57,31 @@ const Map = () => {
 
           }
         }
-      formatted_address = `${!Street_no ? '' : Street_no + ', '}${street_name}, ${city}, ${state}, ${country}`
-      alert(formatted_address)
-      console.log(`${!Street_no ? '' : Street_no+','} street_name, city, state, country`)
-      // console.log(formatted_address)
+        
+        formatted_address = `${!Street_no ? '' : Street_no + ', '}${street_name}, ${city}, ${state}, ${country}`
+        
+      }
+    } else {
+      console.log('could not get your location info')    
     }
+    
+    let _location_longitude = ''
+    let _location_latitude = ''
+    let _name_of_location = formatted_address
+    
+  if (_location_latitude && _location_longitude && _name_of_location) {
+    
+    const data_to_save = location && {
+      _longitude : _location_longitude,
+      _latitude : _location_latitude,
+      _name : _name_of_location
+  
+    } 
+    console.log(data_to_save)
   } else {
-    console.log('could not get your location info')    
+    console.log('I no see shishi ooo')
   }
 
-  const data_to_save = location && {
-    _longitude : location.longitude,
-    _latitude : location.latitude,
-    _name : formatted_address
-
-  }
-  console.log(data_to_save)
 
   
   return (

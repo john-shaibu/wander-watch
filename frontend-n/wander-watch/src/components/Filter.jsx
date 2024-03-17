@@ -37,19 +37,6 @@ const Filter = () => {
                         </div>
                     </div>
                 </div>
-                <div className='time_spent'>   
-                    <span>Time spent</span>
-                    <div>
-                        <div>
-                            <label htmlFor="time_spent_from">From</label>
-                            <input type="text" name="time_spent_from" id="time_spent_from" placeholder='From' />
-                        </div>
-                        <div>
-                            <label htmlFor="time_spent_to">To</label>
-                            <input type="text" name="time_spent_to" id="time_spent_to" placeholder='To' />
-                        </div>
-                    </div>
-                </div>
                 <button type="submit" className='primary-btn'>Filter locations</button>
             </form>
         </div>

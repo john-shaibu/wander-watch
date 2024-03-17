@@ -21,41 +21,41 @@ const DiscoveryMap = () => {
   const { loading: loadingLocation, value: locationTitle, error: locationError } = useAsync(getLocationAdress(location?.longitude, location?.latitude), [ location ])
   const  locationFallback = 'omo!'
   
-  if (locationTitle != null) {
-    const results = locationTitle.results;
-    if (results[0]){
-      let address_components = results[0].address_components;
+  // if (locationTitle != null) {
+  //   const results = locationTitle.results;
+  //   if (results[0]){
+  //     let address_components = results[0].address_components;
       
 
-      for (var i = 0; i < address_components.length; i++) {
-          if (address_components[i].types[0] === "street_number") {
-              Street_no = address_components[i].long_name;    
-          }
-          if (address_components[i].types[0] === "neighborhood" || address_components[i].types[0] === "route" || address_components[i].types[0] === "premise") {
-              street_name = address_components[i].long_name;    
-          }
-          if (address_components[i].types[0] === "administrative_area_level_1" && address_components[i].types[1] === "political") {
-              state = address_components[i].long_name;    
-          }
-          if (address_components[i].types[0] === "locality" && address_components[i].types[1] === "political" ) {                                
-              city = address_components[i].long_name;   
-          }
+  //     for (var i = 0; i < address_components.length; i++) {
+  //         if (address_components[i].types[0] === "street_number") {
+  //             Street_no = address_components[i].long_name;    
+  //         }
+  //         if (address_components[i].types[0] === "neighborhood" || address_components[i].types[0] === "route" || address_components[i].types[0] === "premise") {
+  //             street_name = address_components[i].long_name;    
+  //         }
+  //         if (address_components[i].types[0] === "administrative_area_level_1" && address_components[i].types[1] === "political") {
+  //             state = address_components[i].long_name;    
+  //         }
+  //         if (address_components[i].types[0] === "locality" && address_components[i].types[1] === "political" ) {                                
+  //             city = address_components[i].long_name;   
+  //         }
           
-          if (address_components[i].types[0] === "country") {
-              country = address_components[i].long_name;
+  //         if (address_components[i].types[0] === "country") {
+  //             country = address_components[i].long_name;
 
-          }
-        }
-      formatted_address = `${!Street_no ? '' : Street_no + ', '}${street_name}, ${city}, ${state}, ${country}`
-      // console.log(`${!Street_no ? '' : Street_no+','} street_name, city, state, country`)
-      console.log(formatted_address)
-    }
-  } else {
-    console.log('could not get your location info')    
-  }
+  //         }
+  //       }
+  //     formatted_address = `${!Street_no ? '' : Street_no + ', '}${street_name}, ${city}, ${state}, ${country}`
+  //     // console.log(`${!Street_no ? '' : Street_no+','} street_name, city, state, country`)
+  //     console.log(formatted_address)
+  //   }
+  // } else {
+  //   console.log('could not get your location info')    
+  // }
   
   return (
-    <div className='map-container'>
+    <div className='map-container min-h-96'>
         {!location ? <MapLoader /> : <MapContainer zoomControl={false} zoom={8} center={{lng: location.longitude, lat: location.latitude}} ref={mapRef} scrollWheelZoom={false} >
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

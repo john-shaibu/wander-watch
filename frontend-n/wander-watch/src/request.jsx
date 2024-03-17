@@ -104,3 +104,14 @@ export function pingLogin(requestParams, configurations = {}) {
         })
         .catch(checkError)
 }
+export function saveLocation(requestParams, configurations = {}) {
+    return axios.get(`${baseUrl}/auth/`, {
+        ...axiosOptions,
+        ...globalOptions,
+        ...configurations
+    })
+        .then(res => {
+            return res.data
+        })
+        .catch(checkError)
+}
