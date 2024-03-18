@@ -32,7 +32,7 @@ const locationHandler = (locationTitle) => {
         if (address_components[i].types[0] === "street_number") {
           Street_no = address_components[i].long_name;
         }
-        if (address_components[i].types[0] === "neighborhood" || address_components[i].types[0] === "route" || address_components[i].types[0] === "premise" || address_components[i].types[0] === "plus_code") {
+        if (address_components[i].types[0] === "neighborhood"  || address_components[i].types[0] === "premise" || address_components[i].types[0] === "plus_code" || address_components[i].types[0] === "route") {
           street_name = address_components[i].long_name;
         }
         if (address_components[i].types[0] === "administrative_area_level_1" && address_components[i].types[1] === "political") {
@@ -84,7 +84,9 @@ const Map = () => {
 
   const formatted_address = useMemo(() => locationHandler(locationTitle), [locationTitle])
 
-
+  console.log(
+    locationTitle
+  );
   useEffect(() => {
     let intervalId;
     if (location) {
