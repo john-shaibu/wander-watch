@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { NotifyIcon, SearchIcon } from '../assets'
 
 import '../styles/header.css'
@@ -6,7 +7,7 @@ import { LoginInfoHOC } from './HOCs/loginInfoHOC';
 import MenuDropdown from './MenuDropdown';
 
 const AuthButtons = () => {
-  return <div>Login</div>
+  return <Link to='/login'>Login</Link>
 }
 
 const Header = (props) => {

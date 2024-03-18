@@ -12,6 +12,7 @@ import DiscoveryMap from '../components/DiscoveryMap'
 
 import { LoginInfoHOC } from '../components/HOCs/loginInfoHOC'
 import { useNavigate } from 'react-router-dom'
+import { Discovery } from '../assets'
 
 
 const Discover = () => {
@@ -36,18 +37,18 @@ const Discover = () => {
   )
 }
 
-const DiscoverRedirect = () => {
-  const navigate = useNavigate()
+// const DiscoverRedirect = () => {
+//   const navigate = useNavigate()
 
-  navigate('/')
-}
-
-
-const DiscoverPage = () => {
-  return <LoginInfoHOC fallback={<DiscoverRedirect />} errorElement={<DiscoverRedirect />}>{(data) => {
-     return <Discover />
-  }}</LoginInfoHOC>
-}
+//   navigate('/login')
+// }
 
 
-export default DiscoverPage
+// const DiscoverPage = () => {
+//   return <LoginInfoHOC fallback={<DiscoverRedirect />} errorElement={<DiscoverRedirect />}>{(data) => {
+//      return <Discover />
+//   }}</LoginInfoHOC>
+// }
+
+
+export default Discover

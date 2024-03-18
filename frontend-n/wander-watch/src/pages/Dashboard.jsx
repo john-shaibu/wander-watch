@@ -8,6 +8,8 @@ import '../styles/dashboard.css'
 import Map from '../components/Map'
 import LocationHistory from '../components/LocationHistory'
 import { useToggle } from '../hooks/useToggle'
+import { useNavigate } from 'react-router-dom'
+import { LoginInfoHOC } from '../components/HOCs/loginInfoHOC'
 
 
 const Dashboard = () => {
@@ -31,5 +33,20 @@ const Dashboard = () => {
     </div>
   )
 }
+
+
+const DashboardRedirect = () => {
+  const navigate = useNavigate()
+
+  navigate('/')
+}
+
+
+const DashboardPage = () => {
+  return <LoginInfoHOC fallback={<DashboardRedirect />} errorElement={<DashboardRedirect />}>{(data) => {
+     return <Dashboard />
+  }}</LoginInfoHOC>
+}
+
 
 export default Dashboard
