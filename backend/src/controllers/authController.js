@@ -193,8 +193,7 @@ const loginUser = expressAsyncHandler(async (req, res) => {
       maxAge: 1000 * 60 * 60 * 24 * 5,
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production' ? true : false,
-      secure: false,
-      sameSite: true,
+      sameSite: false,
     })
 
     console.log('success');
