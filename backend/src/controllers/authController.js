@@ -192,8 +192,9 @@ const loginUser = expressAsyncHandler(async (req, res) => {
     res.cookie('LIT', token, {
       maxAge: 1000 * 60 * 60 * 24 * 5,
       httpOnly: true,
-      // secure: process.env.NODE_ENV === 'production' ? true : false,
-      secure: false
+      secure: process.env.NODE_ENV === 'production' ? true : false,
+      secure: false,
+      sameSite: true,
     })
 
     console.log('success');
