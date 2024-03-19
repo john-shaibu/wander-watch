@@ -25,7 +25,7 @@ Wander Watch is a web application that allows users to track their location in r
 
 To get started with the Wander Watch project, follow these steps:
 
-1. First, make sure you have yarn installed on your system. If not, you can install it by following the instructions on the official yarn website: https://classic.yarnpkg.com/en/docs/install/
+1. First, make sure you have node (which includes npm) installed on your system. If not, you can install it by following the instructions on the official node [website](https://nodejs.org/en)
 
 2. Clone the repository:
 ```
