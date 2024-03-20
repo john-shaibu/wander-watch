@@ -10,6 +10,7 @@ import LocationHistory from '../components/LocationHistory'
 import { useToggle } from '../hooks/useToggle'
 import { useNavigate } from 'react-router-dom'
 import { LoginInfoHOC } from '../components/HOCs/loginInfoHOC'
+import { useEffect } from 'react'
 
 
 const Dashboard = () => {
@@ -38,7 +39,12 @@ const Dashboard = () => {
 const DashboardRedirect = () => {
   const navigate = useNavigate()
 
-  navigate('/')
+  useEffect(() => {
+    navigate('/login')
+  }, [])
+
+  return 
+ 
 }
 
 
@@ -49,4 +55,4 @@ const DashboardPage = () => {
 }
 
 
-export default Dashboard
+export default DashboardPage
