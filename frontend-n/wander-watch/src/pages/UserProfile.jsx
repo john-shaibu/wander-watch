@@ -9,11 +9,67 @@ import "../styles/dashboard.css";
 import "../styles/profile.css";
 import { useToggle } from "../hooks/useToggle";
 import user_dp_image from '../assets/images/user_dp.jpg'
-import { EditIcon } from "../assets";
+import { CalendarIcon, ClockIcon, EditIcon } from "../assets";
 import { useAsync } from "../hooks/useAsync";
 import { getProfile } from "../request";
 import Loader from "../components/WebLoader";
 
+
+
+const dateFormatter = (date) => {
+  switch (date) {
+    case 1:
+      return 'January'
+      break;
+  
+    case 2:
+      return 'February'
+      break;
+  
+    case 3:
+      return 'March'
+      break;
+  
+    case 4:
+      return 'April'
+      break;
+  
+    case 5:
+      return 'May'
+      break;
+  
+    case 6:
+      return 'June'
+      break;
+  
+    case 7:
+      return 'July'
+      break;
+  
+    case 8:
+      return 'August'
+      break;
+  
+    case 9:
+      return 'September'
+      break;
+  
+    case 10:
+      return 'October'
+      break;
+  
+    case 11:
+      return 'November'
+      break;
+  
+    case 12:
+      return 'December'
+      break;
+  
+    default:
+      break;
+  }
+}
 
 const UserProfile = () => {
   const { value: profileData, loading:loadingUserData } = useAsync(getProfile())
@@ -94,10 +150,20 @@ const UserProfile = () => {
                 <h3 className="font-bold text-2xl text-[var(--color-darkest)]">Location History</h3>
               </div>
               <div className="user_loction_history_contsiner flex flex-col gap-4">
-                {profileData.locations.map((userloactions, key) => {
+                {profileData.locations.splice(0, 10).map((userloactions, key) => {
                   return(
-                    <div key={key} className=" border border-[#ddd]" >
-                        <p>{userloactions.name}</p>
+                    <div key={key} className=" border border-[#ddd] p-4 rounded-lg flex flex-col gap-4 cursor-pointer" >
+                        <b>{userloactions.name}</b>
+                        <div className="flex items-left gap-2 flex-col">
+                          <p className="flex items-center gap-2">
+                            <CalendarIcon />
+                            {userloactions.timestamp.split('-')[2].split('T')[0]} - {dateFormatter(Number((userloactions.timestamp.split('-')[1])))} - {userloactions.timestamp.split('-')[0]}
+                          </p>
+                          <p className="flex items-center gap-2">
+                            <ClockIcon />
+                            {userloactions.timestamp.split('-')[2].split('T')[1].split(':')[0]} : {userloactions.timestamp.split('-')[2].split('T')[1].split(':')[1]} {userloactions.timestamp.split('-')[2].split('T')[1].split(':')[0] > 12 ? 'PM' : 'AM'}
+                          </p>
+                        </div>
                     </div>
                   )
                 })}
