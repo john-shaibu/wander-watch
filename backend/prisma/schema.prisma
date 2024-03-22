@@ -30,11 +30,12 @@ model User {
 
 // Location model to store user location data
 model Location {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   latitude  Decimal
   longitude Decimal
-  timestamp DateTime @default(now())
+  timestamp DateTime  @default(now())
   userId    String
   name      String
-  user      User     @relation(fields: [userId], references: [id])
+  placeID  String     @default("")
+  user      User      @relation(fields: [userId], references: [id])
 }

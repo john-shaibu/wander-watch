@@ -13,10 +13,13 @@ import { LoginInfoHOC } from '../components/HOCs/loginInfoHOC'
 import { useEffect } from 'react'
 
 
+
 const Dashboard = () => {
 
   const toggleState = useToggle(false)
   const [open,] = toggleState
+
+  
 
 
   return (
@@ -40,11 +43,10 @@ const DashboardRedirect = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    navigate('/login')
+    navigate('login')
   }, [])
 
   return 
- 
 }
 
 

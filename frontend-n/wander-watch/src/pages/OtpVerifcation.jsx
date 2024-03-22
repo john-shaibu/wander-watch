@@ -25,7 +25,6 @@ const OtpVerifcation = () => {
     },
     onError(err){
       setError(error_message = err.message)   
-       console.log(err.message);
     }
   })
 
@@ -38,14 +37,12 @@ const OtpVerifcation = () => {
       },
       onError(err){
         setError(error_message = err.message)   
-       console.log(err.message);
       },
       onSettled({value, error, retries}){
       }
     })
     
     
-    console.log(data)
   }
 
   return (
@@ -61,7 +58,7 @@ const OtpVerifcation = () => {
             <b>Almost There! Verify Your Email Address</b>
             {!error_message ? '' : <ErrorMessage message= {error_message} />}
             <p>
-              We've sent a verification code to <span>johnshaibu277@gmail.com</span>.
+              We've sent a verification code to <span>{email}</span>.
               Please enter the code below to complete your account setup.
             </p>
             <form action="" onSubmit={handleSubmit(onSubmit)} method="post">

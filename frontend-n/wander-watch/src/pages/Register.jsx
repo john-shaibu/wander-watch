@@ -20,13 +20,10 @@ const Register = () => {
       fullname: data.fullname, email: data.user_email, password: data.password
     }, {
       onSuccess(successData) {
-        console.log(successData);
         navigate(`/otp-verification?email=${successData.data.email}`)
       },
       onError(err) {
         setError(error_message = err.message)
-          
-        console.log(err.message)
       },
       onSettled({ value, error }) {
         

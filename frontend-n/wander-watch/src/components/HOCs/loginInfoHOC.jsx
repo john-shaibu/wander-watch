@@ -8,7 +8,7 @@ export const LoginInfoHOC = ({ children, errorElement, fallback }) => {
 
   const Children = React.cloneElement(children)
   return (
-    <Suspense fallback={fallback ?? null}>
+    <Suspense fallback={null}>
         <Await resolve={loaderData.userInformation} errorElement={errorElement ?? null}>
           { (data) => typeof(children) == 'function' ? children(data) : <Children data={data}/> }
         </Await>

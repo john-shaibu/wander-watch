@@ -46,6 +46,17 @@ export function LoginUser(requestParams, configurations = {}) {
         })
         .catch(checkError)
 }
+export function LogoutUser(requestParams, configurations = {}) {
+    return axios.post(`${baseUrl}/auth/logout`, requestParams, {
+        ...axiosOptions,
+        ...globalOptions,
+        ...configurations
+    })
+        .then(res => {
+            return res.data
+        })
+        .catch(checkError)
+}
 export function verifyOTP(requestParams, configurations = {}) {
     return axios.post(`${baseUrl}/auth/verify-otp`, requestParams, {
         ...axiosOptions,
@@ -104,6 +115,20 @@ export function pingLogin(requestParams, configurations = {}) {
         })
         .catch(checkError)
 }
+
+export function getProfile(requestParams, configurations = {}) {
+    return axios.get(`${baseUrl}/users/profile`, {
+        ...axiosOptions,
+        ...globalOptions,
+        ...configurations
+    })
+        .then(res => {
+            return res.data
+        })
+        .catch(checkError)
+}
+
+
 export function saveLocation(requestParams, configurations = {}) {
     return axios.post(`${baseUrl}/locations/`, requestParams, {
         ...axiosOptions,

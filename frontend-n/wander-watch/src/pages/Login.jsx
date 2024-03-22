@@ -8,7 +8,7 @@ import { LoginUser } from "../request";
 
 import PageHelmet from "../components/Helmet";
 import ErrorMessage from "../components/ErrorMessage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 import { LoginInfoHOC } from "../components/HOCs/loginInfoHOC";
@@ -24,19 +24,15 @@ const Login = () => {
   const onSubmit = (data) => {
     loginMutation.mutate({ email: data.email, password: data.password }, {
       onSuccess(successData) {
-        console.log(successData);
         navigate('/')
       },
       onError(ErrorMessage) {
         setError(error_message = ErrorMessage.message)
-
-        console.log(ErrorMessage.message);
       },
       onSettled({ value, error, retries }) {
-        console.log(retries);
+
       }
     })
-    console.log(data)
   }
   return (
     <>
@@ -93,14 +89,18 @@ const Login = () => {
 }
 
 const LoginRedirect = () => {
-  return 'Wetin you dey find?'
+  const navigate = useNavigate()
+  
+  useEffect(() => {
+    navigate('/')
+  }, [])
 }
 
 
 const LoginPage = () => {
-  const navigate = useNavigate()
+ 
   return <LoginInfoHOC fallback={<Login />} errorElement={<Login />}>{(data) => {
-     navigate('/')
+     return <LoginRedirect />
   }}</LoginInfoHOC>
 }
 

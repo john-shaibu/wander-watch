@@ -5,18 +5,14 @@ import { Icon } from './Icon';
 import { Link } from 'react-router-dom'
 import { CaretDropdownIcon,PreferenceIcon,SettingsIcon,SignoutIcon,UserAvatar } from '../assets'
 import { Profile } from "../assets";
-
+import { useAsync } from "../hooks/useAsync";
+import { getProfile } from "../request";
 
 const dropdownContent = [
     {
         title: 'Your Profile',
         url: '/profile',
         icon: Profile,
-    },
-    {
-        title: 'Preferences',
-        url: '/preferences',
-        icon: PreferenceIcon,
     },
     {
         title: 'Settings',
@@ -31,6 +27,9 @@ const dropdownContent = [
 ]
 
 const MenuDropdown = () => {
+
+    const { value: profileData, loading:loadingUserData } = useAsync(getProfile())
+
     const [dropdownOpen, toggleDropdownOpen, set] = useToggle(false)
     const dropdownRef = useRef(null)
     
@@ -44,8 +43,9 @@ const MenuDropdown = () => {
               <UserAvatar />
             </div>
             <div className="name_and_email">
-              <b>John Shaibu</b>
-              <span>johnmaxwell059@gmail.com</span>
+
+              <b>{loadingUserData ? 'loading...' : profileData.fullname}</b>
+              <span>{loadingUserData ? 'loading...' : profileData.email}</span>
             </div>
             <span className='caret'>
               <Icon 

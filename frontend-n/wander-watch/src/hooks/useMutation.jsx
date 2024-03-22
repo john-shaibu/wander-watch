@@ -27,9 +27,6 @@ export function useMutation(mutationFn, events = {}) {
 
         mutationRef.current(params, {
             ...configs,
-            // increaseRetries: () => {
-            //     increment()
-            // }
         })
         .then((data) => {
             setValue(data)

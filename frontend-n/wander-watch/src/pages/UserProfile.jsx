@@ -10,13 +10,15 @@ import "../styles/profile.css";
 import { useToggle } from "../hooks/useToggle";
 import user_dp_image from '../assets/images/user_dp.jpg'
 import { EditIcon } from "../assets";
+import { useAsync } from "../hooks/useAsync";
+import { getProfile } from "../request";
+import Loader from "../components/WebLoader";
 
 
 const UserProfile = () => {
-
+  const { value: profileData, loading:loadingUserData } = useAsync(getProfile())
   const toggleState = useToggle(false)
   const [open,] = toggleState
-
 
   return (
     <div className="main-container">
@@ -29,70 +31,81 @@ const UserProfile = () => {
       <Sidenav toggleState={toggleState} />
       <div className={`side-nav-underlay${open ? " open" : ""}`}></div>
       <div className="profile-wrapper">
-          <main>
-            <div className="profile-container">
-              <div className="user_dp flex items-center gap-10">
-                <div className="user_profile_avatar w-[120px] h-[120px] bg-[#ddd] rounded-full">
-                  <img src={user_dp_image} alt="user profile avatar" />
-                </div>
-                <div className="user_profile_avatar_actions flex items-center gap-6">
-                  <button className="h-[48px] w-[120px] bg-[var(--bg-primary)] px-4 text-[var(--color-lightest)] rounded-lg text-sm font-semibold">Change</button>
-                  <button className="h-[48px] w-[120px] bg-[var(--color-lightest)] px-4 text-[var(--bg-primary)] rounded-lg text-sm font-semibold border-2 border-[var(--bg-primary)]">View</button>
-                </div>
+        <main>
+        {loadingUserData ? <Loader loaderMessage={'Trying to get your information'} /> : 
+          <div className="profile-container">
+            <div className="user_dp flex items-center gap-10">
+              <div className="user_profile_avatar w-[120px] h-[120px] bg-[#ddd] rounded-full">
+                <img src={user_dp_image} alt="user profile avatar" />
               </div>
-              <div className="user_general_information">
-                <div className="user_general_information_header">
-                  <h3 className="font-bold text-2xl text-[var(--color-darkest)]">General Information</h3>
-                  <button className="edit_genaral_information"> <span><EditIcon /></span> Edit</button>
-                </div>
-                <form  className="user_general_information_fields">
-                  <div>
-                    <label htmlFor="firstname">Firstname</label>
-                    <input type="text" value={'John'} placeholder="firstname" readOnly />
-                  </div>
-                  <div>
-                    <label htmlFor="lastname">lastname</label>
-                    <input type="text" value={'Shaibu'} placeholder="lastname" readOnly />
-                  </div>
-                  <div>
-                    <label htmlFor="email">Email</label>
-                    <input type="text" value={'Johnmxawell059@gmail.com'} placeholder="Email" readOnly />
-                  </div>
-                  <div>
-                    <label htmlFor="firstname">Phone number <i>(Optional)</i></label>
-                    <input type="text" value={''} placeholder="Phone number" readOnly />
-                  </div>
-                  <div>
-                    <button className="primary-btn">Update</button>
-                  </div>
-                </form>
-              </div>
-              <div className="user_general_information mt-6">
-                <div className="user_general_information_header">
-                  <h3 className="font-bold text-2xl text-[var(--color-darkest)]">Security</h3>
-                </div>
-                <form  className="user_general_information_fields">
-                  <div>
-                    <label htmlFor="firstname">Password</label>
-                    <input type="text" placeholder="Password" />
-                  </div>
-                  <div>
-                    <label htmlFor="lastname">Confirm Password</label>
-                    <input type="text" placeholder="Password" />
-                  </div>
-                  <div>
-                    <button className="primary-btn">Update</button>
-                  </div>
-                </form>
-              </div>
-              <div className="user_general_information mt-6">
-                <div className="user_general_information_header">
-                  <h3 className="font-bold text-2xl text-[var(--color-darkest)]">Location History</h3>
-                </div>
-                
+              <div className="user_profile_avatar_actions flex items-center gap-6">
+                <button className="h-[48px] w-[120px] bg-[var(--bg-primary)] px-4 text-[var(--color-lightest)] rounded-lg text-sm font-semibold">Change</button>
+                <button className="h-[48px] w-[120px] bg-[var(--color-lightest)] px-4 text-[var(--bg-primary)] rounded-lg text-sm font-semibold border-2 border-[var(--bg-primary)]">View</button>
               </div>
             </div>
-          </main>
+            <div className="user_general_information">
+              <div className="user_general_information_header">
+                <h3 className="font-bold text-2xl text-[var(--color-darkest)]">General Information</h3>
+                <button className="edit_genaral_information"> <span><EditIcon /></span> Edit</button>
+              </div>
+                  <form className="user_general_information_fields">
+                    <div>
+                      <label htmlFor="firstname">Firstname</label>
+                      
+                      <input type="text" value={profileData.fullname.split(' ')[0]} placeholder="firstname" readOnly />
+                    </div>
+                    <div>
+                      <label htmlFor="lastname">lastname</label>
+                      <input type="text" value={profileData.fullname.split(' ')[1]} placeholder="lastname" readOnly />
+                    </div>
+                    <div>
+                      <label htmlFor="email">Email</label>
+                      <input type="text" value={profileData.email} placeholder="Email" readOnly />
+                    </div>
+                    <div>
+                      <label htmlFor="firstname">Phone number <i>(Optional)</i></label>
+                      <input type="text" value={''} placeholder="Phone number" readOnly />
+                    </div>
+                    <div>
+                      <button className="primary-btn">Update</button>
+                    </div>
+                  </form>
+            </div>
+            <div className="user_general_information mt-6">
+              <div className="user_general_information_header">
+                <h3 className="font-bold text-2xl text-[var(--color-darkest)]">Security</h3>
+              </div>
+              <form className="user_general_information_fields">
+                <div>
+                  <label htmlFor="firstname">Password</label>
+                  <input type="text" placeholder="Password" />
+                </div>
+                <div>
+                  <label htmlFor="lastname">Confirm Password</label>
+                  <input type="text" placeholder="Password" />
+                </div>
+                <div>
+                  <button className="primary-btn">Update</button>
+                </div>
+              </form>
+            </div>
+            <div className="user_general_information mt-6">
+              <div className="user_general_information_header">
+                <h3 className="font-bold text-2xl text-[var(--color-darkest)]">Location History</h3>
+              </div>
+              <div className="user_loction_history_contsiner flex flex-col gap-4">
+                {profileData.locations.map((userloactions, key) => {
+                  return(
+                    <div key={key} className=" border border-[#ddd]" >
+                        <p>{userloactions.name}</p>
+                    </div>
+                  )
+                })}
+              </div>
+
+            </div>
+          </div>}
+        </main>
       </div>
     </div>
   )

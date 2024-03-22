@@ -12,13 +12,10 @@ import UpdatePassword from "./pages/UpdatePassword"
 import OtpVerifcation from "./pages/OtpVerifcation"
 import { pingLogin } from "./request"
 import { useEffect } from "react"
+import { Logout } from "./pages/Logout"
 
 
 const BaseElement = () => {
-  const navigation = useResolvedPath()
-  useEffect(() => {
-    console.log(navigation);
-  }, [navigation])
   return <Outlet />
 }
 
@@ -40,6 +37,15 @@ const router = createBrowserRouter([
       {
         path: 'login',
         element: <Login />,
+        loader: () => {
+          const userInformation = pingLogin()
+    
+          return defer({ userInformation })
+        }
+      },
+      {
+        path: 'sign-out',
+        element: <Logout />,
         loader: () => {
           const userInformation = pingLogin()
     

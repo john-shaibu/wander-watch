@@ -20,7 +20,7 @@ const prisma = new PrismaClient({
 const pingLogin = expressAsyncHandler(async (req, res) => { 
     if (!req.user) throw new AppError('Not Logged In', 403)
 
-     res.json({ email: req.user.email })
+     res.json({ email: req.user.email, id: req.user?.id })
 })
 
 
@@ -46,7 +46,6 @@ const registerUser = expressAsyncHandler(async (req, res) => {
   if (user) {
     throw new AppError('User already exists', 400);
   }
-  console.log(user);
   try {
     const verificationCode = generateVerificationCode();
     const hashedVerificationCode = await hashPassword(
@@ -192,11 +191,10 @@ const loginUser = expressAsyncHandler(async (req, res) => {
     res.cookie('LIT', token, {
       maxAge: 1000 * 60 * 60 * 24 * 5,
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production' ? true : false,
-      sameSite: 'none',
+      secure: true,
+      sameSite: 'strict',
+      
     })
-
-    console.log('success');
 
     res.status(200).json({ message: 'Login successful', user: { email, fullname: user.fullname, location : user.locations } });
   } catch (error) {
@@ -204,4 +202,9 @@ const loginUser = expressAsyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { registerUser, verifyOTP, loginUser, resendVerificationCode, pingLogin };
+const logoutUser = expressAsyncHandler(async (req, res) => {
+  res.clearCookie('LIT')
+  res.json('Logout successfully')
+})
+
+module.exports = { registerUser, verifyOTP, loginUser, resendVerificationCode, pingLogin, logoutUser };

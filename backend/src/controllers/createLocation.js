@@ -17,7 +17,6 @@ const createLocation = expressAsyncHandler(async (req, res) => {
     });
     res.status(201).json(newLocation);
   } catch (error) {
-    console.log(error);
     throw new AppError('Error Saving location') 
   }
 });

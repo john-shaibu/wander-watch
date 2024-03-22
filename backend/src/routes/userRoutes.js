@@ -4,6 +4,7 @@ const {
   updateUser,
   userMetrics,
   discover,
+  userProfile,
 } = require('../controllers/userController');
 const { loggedInMidddleware } = require('../middlewares/authMiddlewares');
 
@@ -17,7 +18,7 @@ userRouter.put('/update', loggedInMidddleware, updateUser);
 userRouter.put('/update-password', loggedInMidddleware, updatePassword);
 
 // metrics
-// userRouter.get('/metrics', userMetrics);
+userRouter.get('/profile', loggedInMidddleware, userProfile);
 
 // discover
 // userRouter.get('/discover', discover)

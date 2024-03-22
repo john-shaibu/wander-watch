@@ -69,8 +69,33 @@ const userMetrics = expressAsyncHandler(async (req, res) => {
   res.status(200).json({ message: 'user metrics page' });
 });
 
+
+const userProfile = expressAsyncHandler(async (req, res) => {
+  try {
+    let locations = await prisma.location.findMany({
+      where: {
+        userId: req.user?.id
+      },
+      orderBy: { timestamp: 'desc' },
+    })
+
+    res.json({
+      id: req.user?.id,
+      fullname: req.user?.fullname,
+      email: req.user.email,
+      fullname: req.user.fullname,
+      locations
+    }) 
+
+  } catch (error) {
+    throw new AppError(error)
+  }
+});
+
+
+
 const discover = expressAsyncHandler(async (req, res) => {
   res.status(200).json({ message: 'user discover page' });
 });
 
-module.exports = { updateUser, updatePassword, userMetrics, discover };
+module.exports = { updateUser, updatePassword, userMetrics, discover, userProfile };
