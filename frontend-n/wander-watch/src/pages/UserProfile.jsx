@@ -108,11 +108,11 @@ const UserProfile = () => {
                     <div>
                       <label htmlFor="firstname">Firstname</label>
                       
-                      <input type="text" value={profileData.fullname.split(' ')[0]} placeholder="firstname" readOnly />
+                      <input type="text" value={profileData?.fullname.split(' ')[0]} placeholder="firstname" readOnly />
                     </div>
                     <div>
                       <label htmlFor="lastname">lastname</label>
-                      <input type="text" value={profileData.fullname.split(' ')[1]} placeholder="lastname" readOnly />
+                      <input type="text" value={profileData?.fullname.split(' ')[1]} placeholder="lastname" readOnly />
                     </div>
                     <div>
                       <label htmlFor="email">Email</label>

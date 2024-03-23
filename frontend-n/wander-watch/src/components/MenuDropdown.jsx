@@ -44,8 +44,8 @@ const MenuDropdown = () => {
             </div>
             <div className="name_and_email">
 
-              <b>{loadingUserData ? 'loading...' : profileData.fullname}</b>
-              <span>{loadingUserData ? 'loading...' : profileData.email}</span>
+              <b>{loadingUserData ? 'loading...' : profileData?.fullname}</b>
+              <span>{loadingUserData ? 'loading...' : profileData?.email}</span>
             </div>
             <span className='caret'>
               <Icon 

@@ -6,34 +6,6 @@ import Loader from './WebLoader'
 const random_date = new Date(new Date() - Math.random()*(1e+12))
 
 
-
-const locationHistoryData = [
-  {
-    date : '12th January, 2024',
-    name_of_loaction: 'Mellanby Hall, UI',
-    time_reached: '4:30pm',
-    time_spent: 4,
-  },
-  {
-    date : '12th January, 2024',
-    name_of_loaction: 'Independence Hall',
-    time_reached: '4:30pm',
-    time_spent: 4,
-  },
-  {
-    date : '12th January, 2024',
-    name_of_loaction: 'CBN lecture theatre',
-    time_reached: '4:30pm',
-    time_spent: 4,
-  },
-  {
-    date : '12th January, 2024',
-    name_of_loaction: 'Trenchard Hall, UI',
-    time_reached: '4:30pm',
-    time_spent: 4,
-  },
-]
-
 const dateFormatter = (date) => {
   switch (date) {
     case 1:
@@ -117,7 +89,7 @@ const LocationHistory = () => {
                 {/* <span className="time_reached">{history.timestamp.split('-')[2].split('T')}</span> */}
               </div>
             )
-          })}
+          })} : 'No location History'
       </div>}
     </div>
   )
