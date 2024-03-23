@@ -193,6 +193,7 @@ const loginUser = expressAsyncHandler(async (req, res) => {
       httpOnly: true,
       secure: true,
       sameSite: 'strict',
+      domain: 'https://wander-watch.vercel.app/'
       
     })
 
