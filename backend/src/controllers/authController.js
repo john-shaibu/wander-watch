@@ -24,12 +24,6 @@ const pingLogin = expressAsyncHandler(async (req, res) => {
 })
 
 
-// const main = async () => {
-// await prisma.user.deleteMany({})
-// }
-
-// main()
-
 // Register a new user
 const registerUser = expressAsyncHandler(async (req, res) => {
 
