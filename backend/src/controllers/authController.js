@@ -64,11 +64,11 @@ const registerUser = expressAsyncHandler(async (req, res) => {
         verificationCodeExpirationTime: String(verificationCodeExpirationTime)
       },
     });
-    // await sendVerificationEmail(email, verificationCode); // Uncomment this when going live
+    await sendVerificationEmail(email, verificationCode); // Uncomment this when going live
     res.json({
       status: 'PENDING',
       message: 'Verification OTP email sent',
-      data: { email, verificationCode }, // Remove the verificationCode
+      data: { email }, // Remove the verificationCode
     });
   } catch (error) {
     throw new AppError(error)
