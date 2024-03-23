@@ -192,8 +192,7 @@ const loginUser = expressAsyncHandler(async (req, res) => {
       maxAge: 1000 * 60 * 60 * 24 * 5,
       httpOnly: true,
       secure: true,
-      sameSite: 'lax',
-      
+      sameSite: 'none'      
     })
 
     res.status(200).json({ message: 'Login successful', user: { email, fullname: user.fullname, location : user.locations } });
