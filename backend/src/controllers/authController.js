@@ -202,7 +202,12 @@ const loginUser = expressAsyncHandler(async (req, res) => {
 });
 
 const logoutUser = expressAsyncHandler(async (req, res) => {
-  res.clearCookie('LIT')
+  res.cookie('LIT', null, {
+    maxAge: -1000,
+    httpOnly: true,
+    secure: true,
+    sameSite: 'none'      
+  })
   res.json('Logout successfully')
 })
 
