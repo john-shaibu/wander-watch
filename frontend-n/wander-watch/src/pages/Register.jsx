@@ -17,7 +17,7 @@ const Register = () => {
   const navigate = useNavigate()
   const onSubmit = (data) => {
     registerMutation.mutate({
-      fullname: data.fullname, email: data.user_email, password: data.password
+      fullname: data.fullname.toLowerCase(), email: data.user_email.toLowerCase(), password: data.password
     }, {
       onSuccess(successData) {
         navigate(`/otp-verification?email=${successData.data.email}`)

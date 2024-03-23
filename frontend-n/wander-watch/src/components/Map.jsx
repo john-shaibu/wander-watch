@@ -93,7 +93,7 @@ const MapContents = () => {
 
   const formatted_address = useMemo(() => locationHandler(locationTitle, location), [locationTitle, location])
   const minsToSeconds = useMemo(() => {
-    let mins = 30
+    let mins = 30;
      return 1000 * 60 * mins
   }, [])
 
