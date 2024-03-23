@@ -9,9 +9,10 @@ import getLocationAdress from './mapComponents/mapDataFetcher';
 import CustomMarker from './mapComponents/Marker';
 import { useState } from 'react';
 import { saveLocation } from '../request';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useRevalidator } from 'react-router-dom'
 import { useMutation } from '../hooks/useMutation';
 import { useTimeout } from '../hooks/useTimeout';
+import { useSet } from '../hooks/useSet';
 
 
 
@@ -84,7 +85,7 @@ const locationHandler = (locationTitle, location) => {
 
 const MapContents = () => {
   // Core hooks
-
+  const revalidator = useRevalidator()
   const mapObject = useMap()
   let location = mapObject['_lastCenter'];
 
@@ -92,7 +93,7 @@ const MapContents = () => {
 
   const formatted_address = useMemo(() => locationHandler(locationTitle, location), [locationTitle, location])
   const minsToSeconds = useMemo(() => {
-    let mins = 10
+    let mins = 30
      return 1000 * 60 * mins
   }, [])
 
@@ -100,12 +101,10 @@ const MapContents = () => {
   // Mutation setter functions
   const saveLocationMutation = useMutation((params, config) => saveLocation(params, config), {
     onSuccess(successData) {
-      
-
+      revalidator.revalidate()
     },
     onError(ErrorMessage) {
       // setError(error_message = ErrorMessage.message)
-
     },
     onSettled({ value, error, retries }) {
     }
@@ -114,8 +113,12 @@ const MapContents = () => {
   const [,, reset] = useTimeout(() => {
     if (formatted_address && location) saveLocationMutation.mutate({ name: formatted_address, latitude: location?.lat , longitude: location?.lng })
     reset()
-  }, minsToSeconds, true, true)
+  }, minsToSeconds, true)
 
+  useSet(formatted_address, () => {
+    console.log(formatted_address, 'about to send')
+    saveLocationMutation.mutate({ name: formatted_address, latitude: location?.lat , longitude: location?.lng })
+  })
 
   return <>
     <TileLayer

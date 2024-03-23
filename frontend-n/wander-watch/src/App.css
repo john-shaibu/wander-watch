@@ -55,6 +55,11 @@
 .primary-btn:hover{
   transform: scale(1.05);
 }
+.primary-btn:disabled{
+  cursor: not-allowed;
+  background-color: hsl(230, 58%, 10%);
+
+}
 
 .red-btn{
   background-color: var(--bg-red);

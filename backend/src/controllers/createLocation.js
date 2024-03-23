@@ -13,11 +13,12 @@ const createLocation = expressAsyncHandler(async (req, res) => {
 
   try {
     const newLocation = await prisma.location.create({
-      data: { latitude, longitude, userId, name },
+      data: { latitude, longitude, name, userId },
     });
     res.status(201).json(newLocation);
   } catch (error) {
     throw new AppError('Error Saving location') 
+    
   }
 });
 

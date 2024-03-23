@@ -25,6 +25,7 @@ export function useTimeout(callback, delay = 1000, autoplay = false, startImmedi
 
     const reset = () => {
         clear()
+        if ( startImmediate ) callbackRef.current()
         set()
     }
 

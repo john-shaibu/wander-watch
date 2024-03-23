@@ -45,7 +45,7 @@ const Login = () => {
           </a>
           <div className="formContainer">
             <h2>Login to your account</h2>
-            {!error_message ? '' : <ErrorMessage message={error_message} />}
+            {!error_message ? '' : <ErrorMessage message={error_message.includes('Error') ? error_message.split(':')[1] : error_message} />}
             <form action="" onSubmit={handleSubmit(onSubmit)} method="post">
               <div>
                 <label htmlFor="user_email">Email Address</label>
@@ -78,7 +78,7 @@ const Login = () => {
                 </div>
                 <Link to='/register' className="forgot_password_link">Forgot password?</Link>
               </div>
-              <button type="submit" className="primary-btn">Login to your account</button>
+              <button type="submit" className="primary-btn" disabled={loginMutation.isMutating}>Login to your account</button>
             </form>
             <p>Don't have an account yet? <Link to='/register'>Create account</Link></p>
           </div>

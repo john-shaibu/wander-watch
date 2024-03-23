@@ -183,7 +183,7 @@ const loginUser = expressAsyncHandler(async (req, res) => {
     // Compare password
     const validPassword = await comparedPassword(password, user.password);
     if (!validPassword)
-      throw new AppError('Invalid password', 400);
+      throw new AppError('Invalid username or password', 400);
 
     // Generate token
     const token = generateToken(user.id);

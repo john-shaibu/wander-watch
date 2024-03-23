@@ -1,10 +1,9 @@
+import { Await, useLoaderData } from 'react-router-dom'
 import {CalendarIcon, ClockIcon, HistoryIcon} from '../assets'
 import { useAsync } from '../hooks/useAsync'
 import { getProfile } from '../request'
 import Loader from './WebLoader'
-
-const random_date = new Date(new Date() - Math.random()*(1e+12))
-
+import { Suspense } from 'react'
 
 const dateFormatter = (date) => {
   switch (date) {
@@ -62,9 +61,7 @@ const dateFormatter = (date) => {
 }
 
 const LocationHistory = () => {
-
-  const { value: profileData, loading: loadingUserData } = useAsync(getProfile())
-  const userLocations = profileData?.locations
+  const { profile } = useLoaderData()
 
   return (
     <div className='location_history'>
@@ -72,25 +69,31 @@ const LocationHistory = () => {
         <HistoryIcon />
         <b>Your Location history</b>
       </div>
-      {loadingUserData ? 'loading your loaction history...' :
-      <div className="location_history_container">
-          {userLocations.slice(0, 10).map((history) => {
-            return (
-              <div className="history_container" key={history.id}>
-                <div className="history_date">
-                  <CalendarIcon />
-                  <span>{history.timestamp.split('-')[2].split('T')[0]} - {dateFormatter(Number((history.timestamp.split('-')[1])))} - {history.timestamp.split('-')[0]}</span>
+      <Suspense fallback={'loading your loaction history...'}>
+        <Await resolve={profile}>
+          {(data) => {
+            const locationsArr = data?.locations
+            return <div className="location_history_container">
+            {locationsArr.slice(0, 5).map((history) => {
+              return (
+                <div className="history_container" key={history.id}>
+                  <div className="history_date">
+                    <CalendarIcon />
+                    <span>{history.timestamp.split('-')[2].split('T')[0]} - {dateFormatter(Number((history.timestamp.split('-')[1])))} - {history.timestamp.split('-')[0]}</span>
+                  </div>
+                  <h4>{history.name}</h4>
+                  <div className="time_spent">
+                    <ClockIcon />
+                    <span>{history.timestamp.split('-')[2].split('T')[1].split(':')[0]} : {history.timestamp.split('-')[2].split('T')[1].split(':')[1]} {history.timestamp.split('-')[2].split('T')[1].split(':')[0] > 12 ? 'PM' : 'AM'}</span>
+                  </div>
+                  {/* <span className="time_reached">{history.timestamp.split('-')[2].split('T')}</span> */}
                 </div>
-                <h4>{history.name}</h4>
-                <div className="time_spent">
-                  <ClockIcon />
-                  <span>{history.timestamp.split('-')[2].split('T')[1].split(':')[0]} : {history.timestamp.split('-')[2].split('T')[1].split(':')[1]} {history.timestamp.split('-')[2].split('T')[1].split(':')[0] > 12 ? 'PM' : 'AM'}</span>
-                </div>
-                {/* <span className="time_reached">{history.timestamp.split('-')[2].split('T')}</span> */}
-              </div>
-            )
-          })} : 'No location History'
-      </div>}
+              )
+            })}
+        </div>
+          }}
+        </Await>
+      </Suspense>
     </div>
   )
 }

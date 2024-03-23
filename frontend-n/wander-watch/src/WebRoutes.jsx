@@ -10,7 +10,7 @@ import UserPreferences from "./pages/UserPreferences"
 import Settings from "./pages/Settings"
 import UpdatePassword from "./pages/UpdatePassword"
 import OtpVerifcation from "./pages/OtpVerifcation"
-import { pingLogin } from "./request"
+import { getProfile, pingLogin } from "./request"
 import { useEffect } from "react"
 import { Logout } from "./pages/Logout"
 
@@ -30,8 +30,9 @@ const router = createBrowserRouter([
         element: <Dashboard />,
         loader: () => {
           const userInformation = pingLogin()
+          const getProfileFunction = getProfile()
     
-          return defer({ userInformation })
+          return defer({ userInformation, profile: getProfileFunction })
         }
       },
       {
