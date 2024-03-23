@@ -192,7 +192,7 @@ const loginUser = expressAsyncHandler(async (req, res) => {
       maxAge: 1000 * 60 * 60 * 24 * 5,
       httpOnly: true,
       secure: true,
-      sameSite: 'strict',
+      sameSite: 'lax',
       domain: 'https://wander-watch.vercel.app/'
       
     })
